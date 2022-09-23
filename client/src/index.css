@@ -1,0 +1,30 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+.card-img1{
+    height: 150px;
+    object-fit: cover;       
+}
+.card-img2{
+    height: 60px;
+    width: 60px;
+    object-fit: cover;   
+    position:absolute;  
+    top: 120px;
+    left:calc(50% - 30px);  
+    border-radius: 30px;
+}
+.card-img3{
+    height: 300px;
+    object-fit: cover;   
+
+}
+.img{
+    height: 30px;
+    width: 30px;
+    object-fit: cover;   
+    border-radius: 30px;
+    margin: 10px;
+}
