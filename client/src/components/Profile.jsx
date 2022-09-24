@@ -2,9 +2,9 @@ import React from 'react';
 import { Card,Row,Col } from 'react-bootstrap';
 import COVER from "../assets/cover.jpg"
 
-const Profile = () => {
+const Profile = (props) => {
     return (
-        <div style={{display:"none"}}>
+        <div className={props.showProfileD ? 'show' : 'hide'}>
               <Card className='mt-1 mb-2' style={{position:"relative",width:""}}>
               <Card.Img src={COVER} alt="cover"  fluid bsPrefix='card-img1'/>
               <Card.Img src={COVER} alt="profile"  fluid bsPrefix='card-img2'/>

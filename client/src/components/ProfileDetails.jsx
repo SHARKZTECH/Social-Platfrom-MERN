@@ -6,8 +6,11 @@ const ProfileDetails = (props) => {
     const handleClickEdit=()=>{
         props.setEditModalShow(true);
     }
+    const handleLogout=()=>{
+        props.setShowProfileD(false);
+    }
     return (
-        <div style={{display:"none"}}>
+        <div className={props.showProfileD ? 'show' : 'hide'}>
             <Card style={{position:"relative"}} className="p-2 mt-2">
                 <Card.Body>
                     <div>
@@ -22,7 +25,7 @@ const ProfileDetails = (props) => {
                     <p>Lives In: New York</p>
                     <p>Works at: Amazon</p>
 
-                    <Button className='login-btn'>Logout</Button>
+                    <Button className='login-btn' onClick={handleLogout}>Logout</Button>
                 </Card.Body>
             </Card>
         </div>

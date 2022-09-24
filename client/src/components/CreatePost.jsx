@@ -27,7 +27,7 @@ const CreatePost = (props) => {
                     </Form.Group>
                     </div>
                 </div>
-                <div className={`d-flex gap-${props.gap} mx-3 align-items-center`}>
+                <div className={`d-flex gap-${props.gap} mx-3 align-items-center flex-wrap`}>
                     <p className='d-flex align-items-center'>
                         <MdInsertPhoto/>
                         Photo

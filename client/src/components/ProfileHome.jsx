@@ -1,11 +1,15 @@
 import React from 'react';
 import COVER from "../assets/cover.jpg"
 import { Card,Row,Col } from 'react-bootstrap';
+import { useState } from 'react';
 
 
-const ProfileHome = () => {
+const ProfileHome = ({setShowProfileD,showProfileD}) => {
+    const handleProfile=()=>{
+        setShowProfileD(true);
+    }
     return (
-        <div>
+        <div className={showProfileD ? 'hide' : 'show'}>
             <Card className='mt-1' style={{position:"relative",width:"",display:""}}>
               <Card.Img src={COVER} alt="cover"  fluid bsPrefix='card-img1'/>
               <Card.Img src={COVER} alt="profile"  fluid bsPrefix='card-img2'/>
@@ -25,7 +29,9 @@ const ProfileHome = () => {
                             <p>Following</p>
                         </Col>
                     </Row>
-                    <p className='text-center mt-2 mb-0'>My Profile</p>
+                    <div className="d-flex align-items-center flex-column" >
+                    <p className='text-center mt-2 mb-0 btn'  style={{color:"yellow",fontStyle:"italic"}} onClick={handleProfile} >My Profile</p>
+                    </div>
                 </Card.Text>
               </Card.Body>
            </Card>   

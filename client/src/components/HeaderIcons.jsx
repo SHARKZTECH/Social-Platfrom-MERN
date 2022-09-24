@@ -5,7 +5,7 @@ import {BiMessageDots,BiMessageRoundedAdd} from "react-icons/bi"
 const HeaderIcons = () => {
     return (
         <div>
-            <div className='d-flex gap-4 mx-3'>
+            <div className='d-flex mx-3 justify-content-around'>
             <p>
                 <BiMessageRoundedAdd size={25}/>                
             </p>

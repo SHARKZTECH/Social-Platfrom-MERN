@@ -59,7 +59,7 @@ body::-webkit-scrollbar{
 }
 .frm-group{
     display: block;
-    width: 160%;
+    width: 100%;
 }
 
 .login-btn{
@@ -74,4 +74,10 @@ body::-webkit-scrollbar{
     margin: 40px;
     top:0;
     right: 0;
+}
+.show{
+    display: "";
+}
+.hide{
+    display: none;
 }

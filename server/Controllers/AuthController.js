@@ -26,10 +26,10 @@ export const loginUser=async(req,res)=>{
         if(valid){
             res.status(200).json(user);
         }else{
-            res.status(400).json("Cool down and enter correct password!");
+            res.status(400).json({detail:"Cool down and enter correct password!"});
         }
     }else{
-        res.status(404).json("user doesnot exist!");
+        res.status(404).json({detail:"user doesnot exist!"});
     }
     }catch(err){
         res.status(500).json({message:err.message})

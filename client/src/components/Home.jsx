@@ -16,6 +16,7 @@ import PeopleUKnow from './PeopleUKnow';
 const Home = () => {
     const [modalShow,setModalShow]=useState(false);
     const [editmodalShow,setEditModalShow]=useState(false);
+    const [showProfileD,setShowProfileD]=useState(false);
 
     return (
      <Row>
@@ -29,13 +30,13 @@ const Home = () => {
                   <SearchBox/>
                </div>
            </div>
-           <ProfileDetails setEditModalShow={setEditModalShow}  />
-           <ProfileHome/>
+           <ProfileDetails setEditModalShow={setEditModalShow} setShowProfileD={setShowProfileD} showProfileD={showProfileD}/>
+           <ProfileHome showProfileD={showProfileD} setShowProfileD={setShowProfileD}/>
            <PeopleUKnow/>
         </Col>
         
         <Col className='mt-2'>
-            <Profile/>
+            <Profile showProfileD={showProfileD}/>
             <EditDetailsModal 
             show={editmodalShow}
             onHide={()=>setEditModalShow(false)}
@@ -44,7 +45,7 @@ const Home = () => {
             show={modalShow} 
             onHide={()=>setModalShow(false)}
             />
-             <CreatePost gap={3}/>
+             <CreatePost gap={2}/>
             <Feeds/>         
         </Col>
       
