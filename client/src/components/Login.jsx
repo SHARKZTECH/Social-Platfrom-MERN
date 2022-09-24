@@ -2,8 +2,11 @@ import React,{useState} from 'react';
 import { Container,Form,Button ,Col,Row, Card} from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import LOGO from "../assets/logo1.png"
+import {useDispatch,useSelector} from "react-redux"
+import {loginUserAction} from "../redux/actions/userActions"
 
 const Login = () => {
+    const dispatch=useDispatch();
     const [userInfor,setUserInfor]=useState({    
         "username":"",
         "password":"",
@@ -14,11 +17,14 @@ const Login = () => {
         const name=e.target.name;
         setUserInfor({...userInfor,[name]:value});
     }
+    
+    const login=useSelector((state)=>state.login);
+    console.log(login);
 
     const handlerLogin=(e)=>{
         e.preventDefault();
         if(userInfor.username && userInfor.password ){
-               console.log(userInfor);           
+               dispatch(loginUserAction(userInfor));          
         }else(
             alert("All fields Required !")
         )
