@@ -3,6 +3,13 @@
     margin: 0;
     box-sizing: border-box;
 }
+html,body{
+    overflow-y:scroll;
+    height: 125vh;
+}
+body::-webkit-scrollbar{
+    display: none;
+}
 .card-img1{
     height: 150px;
     object-fit: cover;       
@@ -27,4 +34,44 @@
     object-fit: cover;   
     border-radius: 30px;
     margin: 10px;
+}
+
+.feeds{
+    overflow-y: scroll;
+    height:75vh;
+    -ms-scrollbar:none;
+    -moz-scrollbar:none;
+}
+.feeds::-webkit-scrollbar{
+    display: none;
+}
+.pple{
+    overflow-y: scroll;
+    height: 22vh;
+    -ms-scrollbar:none;
+    -moz-scrollbar:none;
+}
+.pple::-webkit-scrollbar{
+  display: none;
+}
+.frm-control{
+    height: 10px;
+}
+.frm-group{
+    display: block;
+    width: 160%;
+}
+
+.login-btn{
+    position: absolute;
+    margin: 20px;
+    right: 0;
+    bottom: 0;
+
+}
+.edit-icon{
+    position: absolute;
+    margin: 40px;
+    top:0;
+    right: 0;
 }

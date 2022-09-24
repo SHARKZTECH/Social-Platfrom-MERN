@@ -9,9 +9,9 @@ import FlipMove from "react-flip-move";
 
 const Feeds = () => {
     return (
-      <div>
+      <div className="feeds">
       <FlipMove>
-      {Array.from({ length: 4 }).map((_, idx) => ( 
+      {Array.from({ length: 8 }).map((_, idx) => ( 
        <Card className='mt-2'>
          <Card.Img src={COVER} alt="img" fluid bsPrefix='card-img3'/>
          <Card.Body className='p-2'>

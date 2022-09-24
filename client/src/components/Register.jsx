@@ -1,9 +1,36 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Container,Form,Button ,Col,Row, Card} from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import LOGO from "../assets/logo1.png"
 
 const Register = () => {
+    const [userInfor,setUserInfor]=useState({
+        "firstname":"",
+        "lastname":"",
+        "username":"",
+        "password":"",
+        "cpassword":""
+    });
+
+    const handleChange=(e)=>{
+        const value=e.target.value;
+        const name=e.target.name;
+        setUserInfor({...userInfor,[name]:value});
+    }
+
+    const handlerRegister=(e)=>{
+        e.preventDefault();
+        if(userInfor.firstname && userInfor.lastname && userInfor.username && userInfor.password && userInfor.cpassword){
+            if(userInfor.password===userInfor.cpassword){
+               console.log(userInfor);
+            }else{
+                alert("ur passwords don`t match!");
+            }
+        }else(
+            alert("All fields Required !")
+        )
+
+    }
     return (
      <Container className='mt-5'>
         <Row  className="justify-content-md-center">
@@ -26,37 +53,55 @@ const Register = () => {
                      <Col>
                         <Form.Group className="mb-3" controlId="formBasicEmail">
                         <Form.Label>First name</Form.Label>
-                        <Form.Control type="text" placeholder="First name" />     
+                        <Form.Control type="text" placeholder="First name" 
+                        onChange={handleChange}
+                        name="firstname"
+                        value={userInfor.firstname}
+                        />     
                         </Form.Group>
                     </Col>
                     <Col>
                         <Form.Group className="mb-3" controlId="formBasicEmail">
                         <Form.Label>Last name</Form.Label>
-                        <Form.Control type="text" placeholder="Last name" />     
+                        <Form.Control type="text" placeholder="Last name"
+                          onChange={handleChange}
+                          name="lastname"
+                          value={userInfor.lastname}
+                          />     
                         </Form.Group>
                     </Col>
                 </Row>
 
                 <Form.Group className="mb-3" controlId="formBasicEmail">
                     <Form.Label>Email address</Form.Label>
-                    <Form.Control type="email" placeholder="Enter email" />     
+                    <Form.Control type="email" placeholder="Enter email" 
+                      onChange={handleChange}
+                      name="username"
+                      value={userInfor.username}
+                      />     
                 </Form.Group>
 
               <Row>
               <Col>
                     <Form.Group className="mb-3" controlId="formBasicPassword">
                         <Form.Label>Password</Form.Label>
-                        <Form.Control type="password" placeholder="Password" />
+                        <Form.Control type="password" placeholder="Password" 
+                          onChange={handleChange}
+                          name="password"
+                          value={userInfor.password}/>
                     </Form.Group> 
                  </Col>
                  <Col>
                     <Form.Group className="mb-3" controlId="formBasicPassword">
                         <Form.Label>Confirm Password</Form.Label>
-                        <Form.Control type="password" placeholder="Confirm Password" />
+                        <Form.Control type="password" placeholder="Confirm Password"
+                            onChange={handleChange}
+                            name="cpassword"
+                            value={userInfor.cpassword}/>
                     </Form.Group> 
                  </Col>
               </Row>   
-                <Button variant="primary" type="submit">
+                <Button variant="primary" type="submit" onClick={handlerRegister}>
                     Register
                 </Button>
                 </Form>

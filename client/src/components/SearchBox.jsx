@@ -14,20 +14,16 @@ const SearchBox = ({keyHandler}) => {
 
 
     return (
-        <Form onSubmit={submitHandler} className='d-flex'>
+        <Form onSubmit={submitHandler}>
+        <Form.Group className="frm-group">
             <Form.Control
             type="text"
             name="q"
             onChange={(e)=>setKeyword(e.target.value)}
-            className="mr-sm ml-sm-3"
-            ></Form.Control>
-
-            <Button
-            type='submit'
-            variant='outline-success'
-            >
-                submit
-            </Button>
+            className="frm-control"
+            placeholder='#Treading'
+            ></Form.Control>  
+         </Form.Group>   
         </Form>
     )
 }
