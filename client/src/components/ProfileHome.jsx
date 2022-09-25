@@ -2,12 +2,16 @@ import React from 'react';
 import COVER from "../assets/cover.jpg"
 import { Card,Row,Col } from 'react-bootstrap';
 import { useState } from 'react';
+import {useSelector} from "react-redux";
 
 
 const ProfileHome = ({setShowProfileD,showProfileD}) => {
     const handleProfile=()=>{
         setShowProfileD(true);
     }
+
+    const {userInfor}=useSelector((state)=>state.login);
+
     return (
         <div className={showProfileD ? 'hide' : 'show'}>
             <Card className='mt-1' style={{position:"relative",width:"",display:""}}>
@@ -15,12 +19,15 @@ const ProfileHome = ({setShowProfileD,showProfileD}) => {
               <Card.Img src={COVER} alt="profile"  fluid bsPrefix='card-img2'/>
               <Card.Body>
                 <Card.Text>
-                    <h6 className='text-center'>Sharkz Reigns</h6>
+                    <h6 className='text-center'>
+                        {userInfor.user.firstname[0].toUpperCase()+userInfor.user.firstname.substring(1)}                       
+                         {" "+userInfor.user.lastname}
+                    </h6>
                     <p className='text-center'>Coder</p>
                     <Row className='border-bottom border-top'>
                         <Col sm={6}>
                             <div  className="border-end">
-                           <p>1</p>
+                           <p>{userInfor.user.followers ? "" : 0}</p>
                            <p>Followers</p>
                            </div>
                         </Col>

@@ -1,13 +1,14 @@
 import React,{useState} from 'react';
 import { Container,Form,Button ,Col,Row, Card} from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import LOGO from "../assets/logo1.png"
 import {useDispatch,useSelector} from "react-redux"
 import {loginUserAction} from "../redux/actions/userActions"
 
 const Login = () => {
+    const navigate=useNavigate();
     const dispatch=useDispatch();
-    const [userInfor,setUserInfor]=useState({    
+    const [userInfo,setUserInfo]=useState({    
         "username":"",
         "password":"",
     });
@@ -15,16 +16,18 @@ const Login = () => {
     const handleChange=(e)=>{
         const value=e.target.value;
         const name=e.target.name;
-        setUserInfor({...userInfor,[name]:value});
+        setUserInfo({...userInfo,[name]:value});
     }
     
-    const login=useSelector((state)=>state.login);
-    console.log(login);
+    const {loading,userInfor}=useSelector((state)=>state.login);
 
     const handlerLogin=(e)=>{
         e.preventDefault();
-        if(userInfor.username && userInfor.password ){
-               dispatch(loginUserAction(userInfor));          
+        if(userInfo.username && userInfo.password ){
+               dispatch(loginUserAction(userInfo)); 
+               if(!loading && userInfor){
+                   navigate("/");
+               }         
         }else(
             alert("All fields Required !")
         )
@@ -53,7 +56,7 @@ const Login = () => {
                     <Form.Control type="email" placeholder="Enter email" 
                      onChange={handleChange}
                      name="username"
-                     value={userInfor.username}/>     
+                     value={userInfo.username}/>     
                 </Form.Group>
 
                 <Form.Group className="mb-3" controlId="formBasicPassword">
@@ -61,7 +64,7 @@ const Login = () => {
                     <Form.Control type="password" placeholder="Password" 
                        onChange={handleChange}
                        name="password"
-                       value={userInfor.password}/>
+                       value={userInfo.password}/>
                 </Form.Group>    
                 <Button variant="primary" type="submit" onClick={handlerLogin}>
                     Login

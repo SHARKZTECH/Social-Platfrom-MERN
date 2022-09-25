@@ -2,8 +2,11 @@ import React, { useState } from 'react';
 import { Container,Form,Button ,Col,Row, Card} from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import LOGO from "../assets/logo1.png"
+import {useDispatch,useSelector} from "react-redux"
+import {registerUserAction} from "../redux/actions/userActions"
 
 const Register = () => {
+    const dispatch=useDispatch();
     const [userInfor,setUserInfor]=useState({
         "firstname":"",
         "lastname":"",
@@ -18,11 +21,15 @@ const Register = () => {
         setUserInfor({...userInfor,[name]:value});
     }
 
+    const user=useSelector((state)=>state.register);
+    console.log(user)
+
     const handlerRegister=(e)=>{
         e.preventDefault();
         if(userInfor.firstname && userInfor.lastname && userInfor.username && userInfor.password && userInfor.cpassword){
             if(userInfor.password===userInfor.cpassword){
-               console.log(userInfor);
+               dispatch(registerUserAction(userInfor));
+
             }else{
                 alert("ur passwords don`t match!");
             }

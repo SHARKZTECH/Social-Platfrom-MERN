@@ -5,5 +5,12 @@ import reducers from "./reducers";
 
 const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
-const store = createStore(reducers, composeEnhancer(applyMiddleware(thunk)));
+const userInforStorange=localStorage.getItem('userInfor') ?
+JSON.parse(localStorage.getItem('userInfor')) :null
+
+const initialState={
+       login:{userInfor:userInforStorange},    
+}
+
+const store = createStore(reducers,initialState, composeEnhancer(applyMiddleware(thunk)));
 export default store;

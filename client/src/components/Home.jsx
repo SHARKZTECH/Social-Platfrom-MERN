@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import {  Col ,Row, Button} from 'react-bootstrap';
+import {useSelector} from "react-redux";
 import SearchBox from './SearchBox';
 import TWITTER from "../assets/twitter.png"
 import Feeds from './Feeds';
@@ -12,12 +13,24 @@ import ProfileHome from './ProfileHome';
 import Trends from './Trends';
 import HeaderIcons from './HeaderIcons';
 import PeopleUKnow from './PeopleUKnow';
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const Home = () => {
+   const navigate=useNavigate();
     const [modalShow,setModalShow]=useState(false);
     const [editmodalShow,setEditModalShow]=useState(false);
     const [showProfileD,setShowProfileD]=useState(false);
 
+    const {userInfor}=useSelector((state)=>state.login);
+
+   //  useEffect(()=>{
+   //    if(!userInfor){
+   //       navigate("/login");
+   //    }
+   //  },[userInfor])
+
+       console.log(userInfor.user)
     return (
      <Row>
 

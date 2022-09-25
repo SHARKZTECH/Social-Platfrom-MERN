@@ -42,8 +42,7 @@ import {
                 'Content-type':'application/json'
             }
         }       
-        const res=await axios.post("/auth/register",user,config);
-        const data=await res.json();
+        const {data}=await axios.post(`${BASE_URL}/auth/register`,user,config);
         dispatch({
             type:USER_REGISTER_SUCCESS,
             payload:data
