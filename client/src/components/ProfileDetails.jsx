@@ -1,6 +1,8 @@
 import React from 'react';
 import { Button, Card } from 'react-bootstrap';
 import {MdEdit} from "react-icons/md"
+import {useSelector} from "react-redux";
+
 
 const ProfileDetails = (props) => {
     const handleClickEdit=()=>{
@@ -9,6 +11,8 @@ const ProfileDetails = (props) => {
     const handleLogout=()=>{
         props.setShowProfileD(false);
     }
+    const {userInfor}=useSelector((state)=>state.login);
+
     return (
         <div className={props.showProfileD ? 'show' : 'hide'}>
             <Card style={{position:"relative"}} className="p-2 mt-2">
@@ -21,9 +25,9 @@ const ProfileDetails = (props) => {
                         />
                         </p>
                     </div>
-                    <p>Status: Single</p>
-                    <p>Lives In: New York</p>
-                    <p>Works at: Amazon</p>
+                    <p>Status: {userInfor?.user.relationship}</p>
+                    <p>Lives In: {userInfor?.user.livesin}</p>
+                    <p>Works at: {userInfor?.user.worksAt}</p>
 
                     <Button className='login-btn' onClick={handleLogout}>Logout</Button>
                 </Card.Body>
