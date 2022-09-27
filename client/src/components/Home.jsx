@@ -30,7 +30,6 @@ const Home = () => {
    //    }
    //  },[userInfor])
 
-       console.log(userInfor?.user)
     return (
      <Row>
 

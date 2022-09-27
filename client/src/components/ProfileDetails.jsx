@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Button, Card } from 'react-bootstrap';
 import {MdEdit} from "react-icons/md"
-import {useSelector} from "react-redux";
+import {useSelector,useDispatch} from "react-redux";
+import {getUserAction} from "../redux/actions/userActions"
 
 
 const ProfileDetails = (props) => {
+    const dispatch=useDispatch();
     const handleClickEdit=()=>{
         props.setEditModalShow(true);
     }
@@ -12,6 +14,11 @@ const ProfileDetails = (props) => {
         props.setShowProfileD(false);
     }
     const {userInfor}=useSelector((state)=>state.login);
+    const {user}=useSelector((state)=>state.user);
+    //  console.log(user);
+    useEffect(()=>{
+        dispatch(getUserAction(userInfor?.user._id));
+    },[userInfor,dispatch])
 
     return (
         <div className={props.showProfileD ? 'show' : 'hide'}>
@@ -25,9 +32,9 @@ const ProfileDetails = (props) => {
                         />
                         </p>
                     </div>
-                    <p>Status: {userInfor?.user.relationship}</p>
-                    <p>Lives In: {userInfor?.user.livesin}</p>
-                    <p>Works at: {userInfor?.user.worksAt}</p>
+                    <p>Status: {user?.relationship}</p>
+                    <p>Lives In: {user?.livesin}</p>
+                    <p>Works at: {user?.worksAt}</p>
 
                     <Button className='login-btn' onClick={handleLogout}>Logout</Button>
                 </Card.Body>

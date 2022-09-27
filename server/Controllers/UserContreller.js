@@ -20,7 +20,8 @@ export const getUser=async(req,res)=>{
     const id=req.params.id;
 
     try{
-    const user=await UserModel.findById(id);
+    const user=await (await UserModel.findById(id));
+    console.log(user);
 
     if(user){
         const {password,...otherDetails}=user._doc
