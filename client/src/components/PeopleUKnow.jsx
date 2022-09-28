@@ -21,15 +21,17 @@ const PeopleUKnow = () => {
     }
     const handleUnFollow=(id)=>{
           dispatch(unFollowUserAction(id,newUser));
+        //   dispatch(getUserAction(userInfor?.user._id));
+
             }
     useEffect(()=>{
         if(userInfor){
-            // dispatch(getUsersAction()); 
+            dispatch(getUsersAction()); 
         }
         if(success){
             setFiltedUsers(users.filter((user)=>user._id!==userInfor?.user._id));
         }   
-         },[success])
+         },[])
 
     return (
         <div>        
@@ -38,7 +40,7 @@ const PeopleUKnow = () => {
                  {loading && (<p>Loading...</p>)}                        
                 {!loading &&(
                  <div className='pple'>
-                 {filteredUsers?.map((user) => ( 
+                 {users?.map((user) => ( 
                  <div className='d-flex align-items-center mb-1'>
                     <img src={COVER} className="img" alt="img" />
                     <div className='me-4'>

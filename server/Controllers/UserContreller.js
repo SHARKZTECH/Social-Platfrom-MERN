@@ -6,6 +6,7 @@ export const getUsers=async (req,res)=>{
     try{
         const users=await UserModel.find();
         if(users.length>0){
+
             res.status(200).json(users);
         }
 
@@ -21,7 +22,6 @@ export const getUser=async(req,res)=>{
 
     try{
     const user=await (await UserModel.findById(id));
-    console.log(user);
 
     if(user){
         const {password,...otherDetails}=user._doc

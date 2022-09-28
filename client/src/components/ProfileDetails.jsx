@@ -14,11 +14,11 @@ const ProfileDetails = (props) => {
         props.setShowProfileD(false);
     }
     const {userInfor}=useSelector((state)=>state.login);
-    const {user}=useSelector((state)=>state.user);
+    const {user,success:successUser}=useSelector((state)=>state.user);
     //  console.log(user);
-    useEffect(()=>{
-        dispatch(getUserAction(userInfor?.user._id));
-    },[userInfor,dispatch])
+    // useEffect(()=>{
+    //     dispatch(getUserAction(userInfor?.user._id));
+    // },[])
 
     return (
         <div className={props.showProfileD ? 'show' : 'hide'}>

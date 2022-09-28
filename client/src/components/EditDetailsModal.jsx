@@ -39,7 +39,7 @@ const EditDetailsModal = (props) => {
             });   
 
         }
-    },[successUser])
+    },[successUser,success])
     const newUser={
         ...userData,
         currentUserId:userInfor?.user._id,
@@ -110,7 +110,11 @@ const EditDetailsModal = (props) => {
                 <Row>
                   <Col>
                   <Form.Group className="mb-3" controlId="formBasicPassword">
-                            <Form.Control type="text" placeholder="relationship" />
+                            <Form.Control type="text" placeholder="relationship" 
+                             onChange={handleChange}
+                             name="relationship"
+                             value={userData.relationship}
+                            />
                         </Form.Group> 
                     <Form.Group className="mb-3" controlId="formBasicPassword">
                         <Form.Label>Profile picture</Form.Label>
