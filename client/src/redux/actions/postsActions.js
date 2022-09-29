@@ -20,7 +20,8 @@ export const createPost=(post)=>{
                     "auth-token":userInfor.token
                 }
             }  
-            const {data}=await axios.post(`${BASE_URL}/posts`,config,data);
+            
+            const {data}=await axios.post(`${BASE_URL}/posts`,post,config);
 
             dispatch({type:CREATE_POST_SUCCESS,payload:data});
         }catch(error){
@@ -68,7 +69,7 @@ export const getTimeLinePosts=(id)=>{
                     "auth-token":userInfor.token
                 }
             }  
-            const {data}=await axios.get(`${BASE_URL}/posts/${id}/timeline`,config,data);
+            const {data}=await axios.get(`${BASE_URL}/posts/${id}/timeline`,config);
 
             dispatch({type:GET_TIME_LINE_POSTS_SUCCESS,payload:data});
         }catch(error){
@@ -130,7 +131,7 @@ export const updatePost=(id)=>{
     }
 }
 
-export const likePost=(id)=>{
+export const likePost=(id,body)=>{
     return async(dispatch,getState)=>{
         const {login:{userInfor},}=getState()
         try{
@@ -141,7 +142,8 @@ export const likePost=(id)=>{
                     "auth-token":userInfor.token
                 }
             }  
-            const {data}=await axios.put(`${BASE_URL}/posts/${id}/like`,config,data);
+            console.log(body)
+            const {data}=await axios.put(`${BASE_URL}/posts/${id}/like`,body,config);
 
             dispatch({type:LIKE_POST_SUCCESS,payload:data});
         }catch(error){

@@ -81,3 +81,6 @@ body::-webkit-scrollbar{
 .hide{
     display: none;
 }
+.file_upload>input{
+    display: none;
+}
