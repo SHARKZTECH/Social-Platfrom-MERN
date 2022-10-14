@@ -48,8 +48,7 @@ const EditDetailsModal = (props) => {
     const handleUpdate=(e)=>{
         e.preventDefault();
         dispatch(updateUserAction(userInfor.user._id,newUser));
-            props.onHide();
-      
+            props.onHide();   
     
     }
     return (
