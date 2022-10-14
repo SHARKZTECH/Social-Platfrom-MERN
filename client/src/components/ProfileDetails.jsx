@@ -1,8 +1,8 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Button, Card } from 'react-bootstrap';
 import {MdEdit} from "react-icons/md"
-import {useSelector,useDispatch} from "react-redux";
-import {getUserAction} from "../redux/actions/userActions"
+import {useDispatch, useSelector} from "react-redux";
+import {USER_LOGOUT} from "../redux/constants/usercontants"
 
 
 const ProfileDetails = (props) => {
@@ -11,14 +11,12 @@ const ProfileDetails = (props) => {
         props.setEditModalShow(true);
     }
     const handleLogout=()=>{
-        props.setShowProfileD(false);
+        dispatch({type:USER_LOGOUT});
+        window.localStorage.clear();
+        // props.setShowProfileD(false);
     }
     const {userInfor}=useSelector((state)=>state.login);
-    const {user,success:successUser}=useSelector((state)=>state.user);
-    //  console.log(user);
-    // useEffect(()=>{
-    //     dispatch(getUserAction(userInfor?.user._id));
-    // },[])
+ 
 
     return (
         <div className={props.showProfileD ? 'show' : 'hide'}>
@@ -32,9 +30,9 @@ const ProfileDetails = (props) => {
                         />
                         </p>
                     </div>
-                    <p>Status: {user?.relationship}</p>
-                    <p>Lives In: {user?.livesin}</p>
-                    <p>Works at: {user?.worksAt}</p>
+                    <p>Status: {userInfor?.user.relationship}</p>
+                    <p>Lives In: {userInfor?.user.livesin}</p>
+                    <p>Works at: {userInfor?.user.worksAt}</p>
 
                     <Button className='login-btn' onClick={handleLogout}>Logout</Button>
                 </Card.Body>

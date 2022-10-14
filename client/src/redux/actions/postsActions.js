@@ -24,6 +24,8 @@ export const createPost=(post)=>{
             const {data}=await axios.post(`${BASE_URL}/posts`,post,config);
 
             dispatch({type:CREATE_POST_SUCCESS,payload:data});
+            dispatch(getPosts(userInfor?.user._id));
+
         }catch(error){
             dispatch({
                 type:CREATE_POST_FAIL,

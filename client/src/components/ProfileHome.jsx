@@ -11,9 +11,7 @@ const ProfileHome = ({setShowProfileD,showProfileD}) => {
     const handleProfile=()=>{
         setShowProfileD(true);
     }
-
     const {userInfor}=useSelector((state)=>state.login);
-    const {user}=useSelector((state)=>state.user);
 
     useEffect(()=>{
         dispatch(getUserAction(userInfor?.user._id));
@@ -22,24 +20,24 @@ const ProfileHome = ({setShowProfileD,showProfileD}) => {
     return (
         <div className={showProfileD ? 'hide' : 'show'}>
             <Card className='mt-1' style={{position:"relative",width:"",display:""}}>
-              <Card.Img src={user?.coverPic ||COVER} alt="cover"  fluid bsPrefix='card-img1'/>
-              <Card.Img src={user?.profilePic || COVER} alt="profile"  fluid bsPrefix='card-img2'/>
+              <Card.Img src={userInfor?.user.coverPic ||COVER} alt="cover"  fluid bsPrefix='card-img1'/>
+              <Card.Img src={userInfor?.user.profilePic || COVER} alt="profile"  fluid bsPrefix='card-img2'/>
               <Card.Body>
                 <Card.Text>
                     <h6 className='text-center'>
-                        {user?.firstname[0].toUpperCase()+user?.firstname.substring(1)}                       
-                         {" "+user?.lastname}
+                        {userInfor?.user.firstname[0].toUpperCase()+userInfor?.user.firstname.substring(1)}                       
+                         {" "+userInfor?.user.lastname}
                     </h6>
-                    <p className='text-center'>{user?.about}</p>
+                    <p className='text-center'>{userInfor?.user.about}</p>
                     <Row className='border-bottom border-top'>
                         <Col sm={6}>
                             <div  className="border-end">
-                           <p>{user?.followers.length > 0 ? user?.followers.length : 0}</p>
+                           <p>{userInfor?.user.followers.length > 0 ? userInfor?.user.followers.length : 0}</p>
                            <p>Followers</p>
                            </div>
                         </Col>
                         <Col >
-                            <p>{user?.following.length > 0 ? user?.following.length : 0}</p>
+                            <p>{userInfor?.user.following.length > 0 ? userInfor?.user.following.length : 0}</p>
                             <p>Following</p>
                         </Col>
                     </Row>

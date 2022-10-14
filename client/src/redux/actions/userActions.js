@@ -132,6 +132,11 @@ import {
             type:UPDATE_USER_SUCCESS,
             payload:data
         });
+        dispatch({
+            type:USER_LOGIN_SUCCESS,
+            payload:data
+        });
+        localStorage.setItem("userInfor",JSON.stringify(data));
      }catch(error){
         dispatch({
             type:UPDATE_USER_FAIL,

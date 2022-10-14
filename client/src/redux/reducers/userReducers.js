@@ -30,7 +30,7 @@ export const loginUserReducer=(state={},{type,payload})=>{
         case USER_LOGIN_REQUEST:
             return {loading:true}
         case USER_LOGIN_SUCCESS:
-            return {loading:false,userInfor:payload}
+            return {loading:false,userInfor:payload,success:true}
         case USER_LOGIN_FAIL:
             return {loading:false,error:payload}
         case USER_LOGOUT:

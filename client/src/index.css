@@ -84,3 +84,6 @@ body::-webkit-scrollbar{
 .file_upload>input{
     display: none;
 }
+.icon{
+    cursor: pointer;
+}

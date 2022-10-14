@@ -14,7 +14,6 @@ import { useEffect } from 'react';
 const CreatePost = (props) => {
     const dispatch=useDispatch();
     const [postData,setPostData]=useState({
-        "userId":"",
         "desc":"",
         "image":""
     })
@@ -27,17 +26,20 @@ const CreatePost = (props) => {
        } 
     }
     const {userInfor}=useSelector((state)=>state.login);
-    const {user,success:successUser}=useSelector((state)=>state.user);
-    // setPostData({...postData,userId:user?._id});
+   
+    const userId=userInfor?.user._id;
 
     // useEffect(()=>{     
-    //     setPostData({...postData,userId:user?._id});       
-    // },[])
+    //     setPostData({...postData,userId:userInfor?.user._id});       
+    // },[userInfor])
 
     const handleSubmit=()=>{
-        if(postData.userId){
+        if(userId){
             if(postData.desc){
-               dispatch(createPost(postData));
+               dispatch(createPost({userId,...postData}));
+               setPostData({
+                 "desc":"",
+                "image":""});
             }else{
                 alert("fill in ...");
             }
@@ -50,7 +52,7 @@ const CreatePost = (props) => {
         <Card className='p-1'>
                 <div className='d-flex align-items-center'>
                     <div> 
-                        <img src={user?.profilePic || COVER} alt="img" className='img'/>
+                        <img src={userInfor?.user.profilePic || COVER} alt="img" className='img'/>
                     </div>
                     <div>
                     <Form.Group className='frm-group'>
@@ -60,6 +62,7 @@ const CreatePost = (props) => {
                     className='frm-control'
                     placeholder='What`s hapening ?'
                     onChange={(e)=>setPostData({desc:e.target.value})}
+                    value={postData.desc}
                     ></Form.Control>
                     </Form.Group>
                     </div>

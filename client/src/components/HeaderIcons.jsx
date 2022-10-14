@@ -1,13 +1,13 @@
 import React from 'react';
 import {MdOutlineNotificationsNone,MdOutlineSettings} from "react-icons/md"
-import {BiMessageDots,BiMessageRoundedAdd} from "react-icons/bi"
+import {BiMessageDots,BiHome} from "react-icons/bi"
 
-const HeaderIcons = () => {
+const HeaderIcons = (props) => {
     return (
         <div>
             <div className='d-flex mx-3 justify-content-around'>
             <p>
-                <BiMessageRoundedAdd size={25}/>                
+                <BiHome color='orange' className='icon' size={25} onClick={()=>props.setShowProfileD(false)}/>                
             </p>
             <p>
                 <MdOutlineSettings size={25}/>                

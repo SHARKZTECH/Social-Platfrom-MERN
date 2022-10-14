@@ -62,7 +62,7 @@ const Home = () => {
         </Col>
       
         <Col className='mt-3'>
-        <HeaderIcons/>
+        <HeaderIcons setShowProfileD={setShowProfileD}/>
           <Trends/>
            <div className='d-grid'>
               <Button className='mt-3' onClick={()=>setModalShow(true)}>Share</Button> 

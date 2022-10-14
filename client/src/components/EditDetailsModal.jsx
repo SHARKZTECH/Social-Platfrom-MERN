@@ -22,24 +22,22 @@ const EditDetailsModal = (props) => {
         setUserData({...userData,[e.target.name]:e.target.value});
     }
     const {userInfor}=useSelector((state)=>state.login);
-    const {user,success:successUser}=useSelector((state)=>state.user);
     const {loading,success}=useSelector((state)=>state.updateUser);
-   
     useEffect(()=>{
-        if(successUser){
+        if(userInfor){
             setUserData({
-                "profilePic":user?.profilePic,
-                "coverPic":user?.coverPic,
-                "firstname":user?.firstname,
-                "lastname":user?.lastname,
-                "about":user?.about,
-                "relationship":user?.relationship,
-                "worksAt":user?.worksAt,
-                "livesin":user?.livesin
+                "profilePic":userInfor?.user.profilePic,
+                "coverPic":userInfor?.user.coverPic,
+                "firstname":userInfor?.user.firstname,
+                "lastname":userInfor?.user.lastname,
+                "about":userInfor?.user.about,
+                "relationship":userInfor?.user.relationship,
+                "worksAt":userInfor?.user.worksAt,
+                "livesin":userInfor?.user.livesin
             });   
 
         }
-    },[successUser,success])
+    },[success,userInfor])
     const newUser={
         ...userData,
         currentUserId:userInfor?.user._id,
