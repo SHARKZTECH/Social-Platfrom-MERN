@@ -1,18 +1,16 @@
 import React from 'react';
 import FlipMove from "react-flip-move";
 import {useSelector,useDispatch} from "react-redux"
-import {getPosts,likePost} from "../redux/actions/postsActions"
+import {getPosts} from "../redux/actions/postsActions"
 import { useEffect } from 'react';
 import Feed from "./Feed";
-import { useState } from 'react';
-
 
 
 const Feeds = ({showProfileD}) => {
   const dispatch=useDispatch();
   const {userInfor}=useSelector((state)=>state.login);
   let {posts,loading}=useSelector((state)=>state.posts);
-
+  console.log("posts",posts)
   if(showProfileD){
     posts=posts?.filter((post)=>post.userId === userInfor?.user._id)
   }  

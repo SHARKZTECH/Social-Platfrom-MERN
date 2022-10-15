@@ -174,7 +174,8 @@ import { getPosts } from "./postsActions";
  }
  export const followUserAction=(id,body)=>{
     return async(dispatch,getState)=>{
-        const {login:{userInfor},}=getState()
+        let {login:{userInfor},}=getState();
+
      try{
         dispatch({type:FOLLOW_USER_REQUEST});
         const config={
@@ -187,9 +188,15 @@ import { getPosts } from "./postsActions";
             type:FOLLOW_USER_SUCCESS,
             payload:data
         });   
-        userInfor.user.following.push({id});
-        dispatch(getUsersAction());
-        dispatch(getPosts(body.currentUserId));
+        userInfor.user.following.push(id);
+        dispatch({
+            type:USER_LOGIN_SUCCESS,
+            payload:userInfor
+        });
+        localStorage.removeItem("userInfor");
+        localStorage.setItem("userInfor",JSON.stringify(userInfor));
+        
+     
 
      }catch(error){
         dispatch({
@@ -203,7 +210,8 @@ import { getPosts } from "./postsActions";
  }
  export const unFollowUserAction=(id,body)=>{
     return async(dispatch,getState)=>{
-        const {login:{userInfor},}=getState()
+        let {login:{userInfor},}=getState();
+
      try{
         dispatch({type:UNFOLLOW_USER_REQUEST});
         const config={
@@ -216,9 +224,15 @@ import { getPosts } from "./postsActions";
             type:UNFOLLOW_USER_SUCCESS,
             payload:data
         });   
-        userInfor.user.following.pop({id});
-        dispatch(getUsersAction());
-        dispatch(getPosts(body.currentUserId));
+        userInfor.user.following.pop(id);
+        dispatch({
+            type:USER_LOGIN_SUCCESS,
+            payload:userInfor
+        });
+        localStorage.removeItem("userInfor");
+        localStorage.setItem("userInfor",JSON.stringify(userInfor));
+
+      
 
      }catch(error){
         dispatch({
