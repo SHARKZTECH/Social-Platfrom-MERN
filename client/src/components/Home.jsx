@@ -47,7 +47,7 @@ const Home = () => {
            <PeopleUKnow/>
         </Col>
         
-        <Col className='mt-2'>
+        <Col className='mt-2 mid'>
             <Profile showProfileD={showProfileD}/>
             <EditDetailsModal 
             show={editmodalShow}
@@ -58,7 +58,7 @@ const Home = () => {
             onHide={()=>setModalShow(false)}
             />
              <CreatePost gap={2}/>
-            <Feeds/>         
+            <Feeds showProfileD={showProfileD}/>         
         </Col>
       
         <Col className='mt-3'>

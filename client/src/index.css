@@ -5,7 +5,7 @@
 }
 html,body{
     overflow-y:scroll;
-    height: 125vh;
+    height: 100vh;
 }
 body::-webkit-scrollbar{
     display: none;
@@ -35,10 +35,16 @@ body::-webkit-scrollbar{
     border-radius: 30px;
     margin: 10px;
 }
-
+.mid{
+    max-height: 95vh;
+    overflow-y: scroll;
+}
+.mid::-webkit-scrollbar{
+    display: none;
+}
 .feeds{
     overflow-y: scroll;
-    height:75vh;
+    /* height:70vh; */
     -ms-scrollbar:none;
     -moz-scrollbar:none;
 }
@@ -47,7 +53,7 @@ body::-webkit-scrollbar{
 }
 .pple{
     overflow-y: scroll;
-    height: 22vh;
+    height: 23vh;
     -ms-scrollbar:none;
     -moz-scrollbar:none;
 }

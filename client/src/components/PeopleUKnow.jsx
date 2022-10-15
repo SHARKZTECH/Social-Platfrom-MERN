@@ -17,20 +17,14 @@ const PeopleUKnow = () => {
 
     const handleFollow=(id)=>{
            dispatch(followUserAction(id,newUser));
-        //    dispatch(getUserAction(userInfor?.user._id));
     }
     const handleUnFollow=(id)=>{
           dispatch(unFollowUserAction(id,newUser));
-        //   dispatch(getUserAction(userInfor?.user._id));
-
             }
     useEffect(()=>{
         if(userInfor){
             dispatch(getUsersAction()); 
-        }
-        if(success){
-            setFiltedUsers(users.filter((user)=>user._id!==userInfor?.user._id));
-        }   
+        }        
          },[])
 
     return (
@@ -41,19 +35,21 @@ const PeopleUKnow = () => {
                 {!loading &&(
                  <div className='pple'>
                  {users?.map((user) => ( 
-                 <div className='d-flex align-items-center mb-1'>
+                    user._id===userInfor?.user._id ? "" :
+                 <div className='d-flex align-items-center mb-1' key={user._id}>
                     <img src={COVER} className="img" alt="img" />
-                    <div className='me-4'>
+                    <div className='me-4' style={{minWidth:"250px"}}>
                         <p className='m-0 p-0'>{user.firstname}</p>
                         <p className='m-0 p-0'>{user.username}</p>
                     </div>
+                    <div >
                     {user?.followers.includes(userInfor?.user._id) ? (
                         <Button size='sm' onClick={()=>handleUnFollow(user._id)}>UnFollow</Button>
                     ):(
                         <Button size='sm' onClick={()=>handleFollow(user._id)}>Follow</Button>
-                    )
-                    
+                    )                    
                     }
+                    </div>
                  </div>          
                  ))}
                  </div>

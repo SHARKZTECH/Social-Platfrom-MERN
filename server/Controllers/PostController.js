@@ -7,8 +7,8 @@ export const createPost=async(req,res)=>{
     const newPost=new postModel(req.body)
 
     try{
-        await newPost.save();
-        res.status(200).json("Post created successfully!");
+        const post=await newPost.save();
+        res.status(200).json(post);
     }catch(err){
             res.status(500).json({message:err.message});
         }   

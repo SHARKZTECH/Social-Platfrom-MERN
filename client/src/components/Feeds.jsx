@@ -4,19 +4,21 @@ import {useSelector,useDispatch} from "react-redux"
 import {getPosts,likePost} from "../redux/actions/postsActions"
 import { useEffect } from 'react';
 import Feed from "./Feed";
+import { useState } from 'react';
 
 
 
-const Feeds = () => {
+const Feeds = ({showProfileD}) => {
   const dispatch=useDispatch();
-
   const {userInfor}=useSelector((state)=>state.login);
-  const {posts,loading}=useSelector((state)=>state.posts);
+  let {posts,loading}=useSelector((state)=>state.posts);
 
-
+  if(showProfileD){
+    posts=posts?.filter((post)=>post.userId === userInfor?.user._id)
+  }  
   useEffect(()=>{
-    dispatch(getPosts(userInfor?.user._id));
-  },[])
+    dispatch(getPosts(userInfor?.user._id));  
+  },[userInfor])
 
     return (
       <div className="feeds">

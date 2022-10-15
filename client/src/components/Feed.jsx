@@ -15,8 +15,8 @@ import { useState } from 'react';
 const Feed = ({post}) => {
   const dispatch=useDispatch();
   const {userInfor}=useSelector((state)=>state.login);
-  const [likes,setLikes]=useState(post?.likes.length);
-  const [liked,setLiked]=useState(post.likes.includes(userInfor?.user._id));
+  const [likes,setLikes]=useState(post?.likes?.length);
+  const [liked,setLiked]=useState(post.likes?.includes(userInfor?.user._id));
   const body={"userId":userInfor?.user._id}
 
   const handleLike=(id)=>{
@@ -34,7 +34,7 @@ const Feed = ({post}) => {
         <div>
         { post.image ? (
        <Card className='mt-2'>
-         <Card.Img src={post.image} alt="img" fluid bsPrefix='card-img3'/>
+         <Card.Img src={post.image} alt="img"  bsPrefix='card-img3'/>
          <Card.Body className='p-2'>
            <div className='d-flex'>
            <p className='me-2' >

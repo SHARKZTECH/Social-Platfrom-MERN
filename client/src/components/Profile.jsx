@@ -11,8 +11,8 @@ const Profile = (props) => {
     return (
         <div className={props.showProfileD ? 'show' : 'hide'}>
               <Card className='mt-1 mb-2' style={{position:"relative",width:""}}>
-              <Card.Img src={userInfor?.user.coverPic ||COVER} alt="cover"  fluid bsPrefix='card-img1'/>
-              <Card.Img src={userInfor?.user.profilePic || COVER} alt="profile"  fluid bsPrefix='card-img2'/>
+              <Card.Img src={userInfor?.user.coverPic ||COVER} alt="cover"  bsPrefix='card-img1'/>
+              <Card.Img src={userInfor?.user.profilePic || COVER} alt="profile"   bsPrefix='card-img2'/>
               <Card.Body>
                 <Card.Text>
                     <h6 className='text-center'>

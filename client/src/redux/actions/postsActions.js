@@ -11,7 +11,8 @@ import {GET_POST_REQUEST,GET_POST_SUCCESS,GET_POST_FAIL,
 
 export const createPost=(post)=>{
     return async(dispatch,getState)=>{
-        const {login:{userInfor},}=getState()
+        let {login:{userInfor},posts:{posts}}=getState();       
+
         try{
             dispatch({type:CREATE_POST_REQUEST});
             const config={
@@ -24,7 +25,8 @@ export const createPost=(post)=>{
             const {data}=await axios.post(`${BASE_URL}/posts`,post,config);
 
             dispatch({type:CREATE_POST_SUCCESS,payload:data});
-            dispatch(getPosts(userInfor?.user._id));
+            posts.unshift(data);
+             dispatch({type:GET_POSTS_SUCCESS,payload:posts});
 
         }catch(error){
             dispatch({
@@ -144,7 +146,6 @@ export const likePost=(id,body)=>{
                     "auth-token":userInfor.token
                 }
             }  
-            console.log(body)
             const {data}=await axios.put(`${BASE_URL}/posts/${id}/like`,body,config);
 
             dispatch({type:LIKE_POST_SUCCESS,payload:data});

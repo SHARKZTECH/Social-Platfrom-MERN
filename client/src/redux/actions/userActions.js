@@ -12,6 +12,7 @@ import {
  import axios from "axios";
 
  import {BASE_URL} from "./base"
+import { getPosts } from "./postsActions";
 
  export const loginUserAction=(user)=>{
     return async(dispatch)=>{
@@ -172,7 +173,8 @@ import {
     }
  }
  export const followUserAction=(id,body)=>{
-    return async(dispatch)=>{
+    return async(dispatch,getState)=>{
+        const {login:{userInfor},}=getState()
      try{
         dispatch({type:FOLLOW_USER_REQUEST});
         const config={
@@ -184,7 +186,11 @@ import {
         dispatch({
             type:FOLLOW_USER_SUCCESS,
             payload:data
-        });
+        });   
+        userInfor.user.following.push({id});
+        dispatch(getUsersAction());
+        dispatch(getPosts(body.currentUserId));
+
      }catch(error){
         dispatch({
             type:FOLLOW_USER_FAIL,
@@ -196,7 +202,8 @@ import {
     }
  }
  export const unFollowUserAction=(id,body)=>{
-    return async(dispatch)=>{
+    return async(dispatch,getState)=>{
+        const {login:{userInfor},}=getState()
      try{
         dispatch({type:UNFOLLOW_USER_REQUEST});
         const config={
@@ -208,7 +215,11 @@ import {
         dispatch({
             type:UNFOLLOW_USER_SUCCESS,
             payload:data
-        });
+        });   
+        userInfor.user.following.pop({id});
+        dispatch(getUsersAction());
+        dispatch(getPosts(body.currentUserId));
+
      }catch(error){
         dispatch({
             type:UNFOLLOW_USER_FAIL,
