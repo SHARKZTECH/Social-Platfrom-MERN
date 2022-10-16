@@ -23,7 +23,7 @@ import { getPosts } from "./postsActions";
                 'Content-type':'application/json'
             }
         }       
-        const {data}=await axios.post(`${BASE_URL}/auth/login`,user,config);
+        const {data}=await axios.post(`api/auth/login`,user,config);
         
         dispatch({
             type:USER_LOGIN_SUCCESS,
@@ -49,7 +49,7 @@ import { getPosts } from "./postsActions";
                 'Content-type':'application/json'
             }
         }       
-        const {data}=await axios.post(`${BASE_URL}/auth/register`,user,config);
+        const {data}=await axios.post(`api/auth/register`,user,config);
         dispatch({
             type:USER_REGISTER_SUCCESS,
             payload:data
@@ -76,7 +76,7 @@ import { getPosts } from "./postsActions";
                 "auth-token":userInfor.token
             }
         }       
-        const {data}=await axios.get(`${BASE_URL}/users/`,config);
+        const {data}=await axios.get(`api/users/`,config);
         dispatch({
             type:GET_USERS_SUCCESS,
             payload:data
@@ -100,7 +100,7 @@ import { getPosts } from "./postsActions";
                 'Content-type':'application/json'
             }
         }       
-        const {data}=await axios.get(`${BASE_URL}/users/${id}`,config);
+        const {data}=await axios.get(`api/users/${id}`,config);
         dispatch({
             type:GET_USER_SUCCESS,
             payload:data
@@ -128,7 +128,7 @@ import { getPosts } from "./postsActions";
             }
         } 
         
-        const {data}=await axios.put(`${BASE_URL}/users/${id}`,user,config);
+        const {data}=await axios.put(`api/users/${id}`,user,config);
         dispatch({
             type:UPDATE_USER_SUCCESS,
             payload:data
@@ -157,7 +157,7 @@ import { getPosts } from "./postsActions";
                 'Content-type':'application/json'
             }
         }       
-        const {data}=await axios.delete(`${BASE_URL}/users/${id}`,config);
+        const {data}=await axios.delete(`api/users/${id}`,config);
         dispatch({
             type:DELETE_USER_SUCCESS,
             payload:data
@@ -183,7 +183,7 @@ import { getPosts } from "./postsActions";
                 'Content-type':'application/json'
             }
         }       
-        const {data}=await axios.put(`${BASE_URL}/users/${id}/follow`,body,config);
+        const {data}=await axios.put(`api/users/${id}/follow`,body,config);
         dispatch({
             type:FOLLOW_USER_SUCCESS,
             payload:data
@@ -219,7 +219,7 @@ import { getPosts } from "./postsActions";
                 'Content-type':'application/json'
             }
         }       
-        const {data}=await axios.put(`${BASE_URL}/users/${id}/unfollow`,body,config);
+        const {data}=await axios.put(`api/users/${id}/unfollow`,body,config);
         dispatch({
             type:UNFOLLOW_USER_SUCCESS,
             payload:data

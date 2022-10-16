@@ -17,9 +17,9 @@ app.use(express.urlencoded({limit:'30mb',extended:true}));
 const PORT=process.env.PORT;
 
 
-app.use("api/auth",AuthRoute);
-app.use("api/users",UserRoute);
-app.use("api/posts",PostRoute);
+app.use("/api/auth",AuthRoute);
+app.use("/api/users",UserRoute);
+app.use("/api/posts",PostRoute);
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
