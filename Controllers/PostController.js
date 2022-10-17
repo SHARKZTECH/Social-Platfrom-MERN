@@ -45,15 +45,11 @@ export const updatePost=async(req,res)=>{
 
 export const deletePost=async(req,res)=>{
     const id=req.params.id;
-    const {userId}=req.body;
-
     try{
         const post=await postModel.findById(id);
-        if(post.userId===userId){
+        if(post){
             await post.deleteOne();
             res.status(200).json("Post deleted!");
-        }else{
-            res.status(403).json("Action forbidden!");
         }
     }catch(err){
         res.status(500).json({message:err.message});

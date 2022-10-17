@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import {  Col ,Row, Button} from 'react-bootstrap';
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import SearchBox from './SearchBox';
-import TWITTER from "../assets/twitter.png"
+import TWITTER from "../assets/logo1.png"
 import Feeds from './Feeds';
 import Profile from './Profile';
 import ProfileDetails from './ProfileDetails';
@@ -13,22 +13,24 @@ import ProfileHome from './ProfileHome';
 import Trends from './Trends';
 import HeaderIcons from './HeaderIcons';
 import PeopleUKnow from './PeopleUKnow';
-import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import {getPosts} from "../redux/actions/postsActions"
+import EditPostModal from './EditPostModal';
+
 
 const Home = () => {
-   const navigate=useNavigate();
+   const dispatch=useDispatch();
     const [modalShow,setModalShow]=useState(false);
     const [editmodalShow,setEditModalShow]=useState(false);
+    const [postEditModalShow,setPostEditModalShow]=useState(false);
+    const [postId,setPostId]=useState(null);
     const [showProfileD,setShowProfileD]=useState(false);
 
     const {userInfor}=useSelector((state)=>state.login);
 
-   //  useEffect(()=>{
-   //    if(!userInfor){
-   //       navigate("/login");
-   //    }
-   //  },[userInfor])
+    const handleHome=()=>{
+      dispatch(getPosts(userInfor?.user._id));  
+      setShowProfileD(false)
+  }
 
     return (
      <Row>
@@ -36,7 +38,7 @@ const Home = () => {
         <Col>
            <div className='d-flex align-items-center'>
                <div className='me-1'>
-                 <img src={TWITTER} alt='img' width={40} />
+                 <img src={TWITTER} alt='img' width={60} onClick={handleHome} className="icon"/>
                </div>
                <div>
                   <SearchBox/>
@@ -53,12 +55,17 @@ const Home = () => {
             show={editmodalShow}
             onHide={()=>setEditModalShow(false)}
             />
+            <EditPostModal
+            show={postEditModalShow}
+            onHide={()=>setPostEditModalShow(false)}
+            postId={postId}
+            />
             <CreatePostModal
             show={modalShow} 
             onHide={()=>setModalShow(false)}
             />
              <CreatePost gap={2}/>
-            <Feeds showProfileD={showProfileD}/>         
+            <Feeds showProfileD={showProfileD} setPostEditModalShow={setPostEditModalShow} setPostId={setPostId}/>         
         </Col>
       
         <Col className='mt-3'>

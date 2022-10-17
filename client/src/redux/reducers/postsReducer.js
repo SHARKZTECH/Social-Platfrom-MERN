@@ -4,6 +4,7 @@ import {GET_POST_REQUEST,GET_POST_SUCCESS,GET_POST_FAIL,
     CREATE_POST_REQUEST,CREATE_POST_SUCCESS,CREATE_POST_FAIL,
     UPDATE_POST_REQUEST,UPDATE_POST_SUCCESS,UPDATE_POST_FAIL,
     LIKE_POST_REQUEST,LIKE_POST_SUCCESS,LIKE_POST_FAIL,
+    DELETE_POST_REQUEST,DELETE_POST_SUCCESS,DELETE_POST_FAIL,
 } from "../constants/postsconstants"
 
 export const createpostReducer=(state={},{type,payload})=>{
@@ -49,6 +50,18 @@ export const getpostReducer=(state={},{type,payload})=>{
         case GET_POST_SUCCESS:
             return {loading:false,post:payload,success:true}
         case GET_POST_FAIL:
+            return {}
+        default:
+            return state;
+    }
+}
+export const deletepostReducer=(state={},{type,payload})=>{
+    switch(type){
+        case DELETE_POST_REQUEST:
+            return {loading:true}
+        case DELETE_POST_SUCCESS:
+            return {loading:false,post:payload,success:true}
+        case DELETE_POST_FAIL:
             return {}
         default:
             return state;

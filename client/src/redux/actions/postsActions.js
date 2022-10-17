@@ -7,6 +7,7 @@ import {GET_POST_REQUEST,GET_POST_SUCCESS,GET_POST_FAIL,
     CREATE_POST_REQUEST,CREATE_POST_SUCCESS,CREATE_POST_FAIL,
     UPDATE_POST_REQUEST,UPDATE_POST_SUCCESS,UPDATE_POST_FAIL,
     LIKE_POST_REQUEST,LIKE_POST_SUCCESS,LIKE_POST_FAIL,
+    DELETE_POST_REQUEST,DELETE_POST_SUCCESS,DELETE_POST_FAIL,
 } from "../constants/postsconstants";
 
 export const createPost=(post)=>{
@@ -22,7 +23,7 @@ export const createPost=(post)=>{
                 }
             }  
             
-            const {data}=await axios.post(`api/posts`,post,config);
+            const {data}=await axios.post(`${BASE_URL}/api/posts`,post,config);
 
             dispatch({type:CREATE_POST_SUCCESS,payload:data});
             posts.unshift(data);
@@ -49,7 +50,7 @@ export const getPosts=(id)=>{
                     "auth-token":userInfor.token
                 }
             }  
-            const {data}=await axios.get(`api/posts/${id}/timeline`,config);
+            const {data}=await axios.get(`${BASE_URL}/api/posts/${id}/timeline`,config);
 
             dispatch({type:GET_POSTS_SUCCESS,payload:data});
         }catch(error){
@@ -73,7 +74,7 @@ export const getTimeLinePosts=(id)=>{
                     "auth-token":userInfor.token
                 }
             }  
-            const {data}=await axios.get(`api/posts/${id}/timeline`,config);
+            const {data}=await axios.get(`${BASE_URL}/api/posts/${id}/timeline`,config);
 
             dispatch({type:GET_TIME_LINE_POSTS_SUCCESS,payload:data});
         }catch(error){
@@ -97,7 +98,7 @@ export const getPost=(id)=>{
                     "auth-token":userInfor.token
                 }
             }  
-            const {data}=await axios.get(`api/posts/${id}`,config,data);
+            const {data}=await axios.get(`${BASE_URL}/api/posts/${id}`,config);
 
             dispatch({type:GET_POST_SUCCESS,payload:data});
         }catch(error){
@@ -110,9 +111,39 @@ export const getPost=(id)=>{
         }
     }
 }
-export const updatePost=(id)=>{
+export const deletePost=(id)=>{
     return async(dispatch,getState)=>{
-        const {login:{userInfor},}=getState()
+        let {login:{userInfor},posts:{posts}}=getState();
+        
+        try{
+            dispatch({type:DELETE_POST_REQUEST});
+            const config={
+                headers:{
+                    'Content-type':'application/json',
+                    "auth-token":userInfor.token
+                }
+            }  
+            const {data}=await axios.delete(`${BASE_URL}/api/posts/${id}`,config);
+
+            dispatch({type:DELETE_POST_SUCCESS,payload:data});
+
+            posts=posts.filter((post)=>post._id!==id);
+            dispatch({type:GET_POSTS_SUCCESS,payload:posts});
+
+        }catch(error){
+            dispatch({
+                type:DELETE_POST_FAIL,
+                payload:error.response && error.response.data.detail
+                ? error.response.data.detail
+                :error.message
+            })
+        }
+    }
+}
+export const updatePost=(id,body)=>{
+    return async(dispatch,getState)=>{
+        let {login:{userInfor},posts:{posts}}=getState();
+
         try{
             dispatch({type:UPDATE_POST_REQUEST});
             const config={
@@ -121,9 +152,12 @@ export const updatePost=(id)=>{
                     "auth-token":userInfor.token
                 }
             }  
-            const {data}=await axios.put(`api/posts/${id}`,config,data);
+            const {data}=await axios.put(`${BASE_URL}/api/posts/${id}`,body,config);
 
             dispatch({type:UPDATE_POST_SUCCESS,payload:data});
+            console.log(posts)
+            posts=[...posts.map((post)=> post._id ===id ? post===data : post)]
+            console.log(posts)
         }catch(error){
             dispatch({
                 type:UPDATE_POST_FAIL,
@@ -146,7 +180,7 @@ export const likePost=(id,body)=>{
                     "auth-token":userInfor.token
                 }
             }  
-            const {data}=await axios.put(`api/posts/${id}/like`,body,config);
+            const {data}=await axios.put(`${BASE_URL}/api/posts/${id}/like`,body,config);
 
             dispatch({type:LIKE_POST_SUCCESS,payload:data});
         }catch(error){

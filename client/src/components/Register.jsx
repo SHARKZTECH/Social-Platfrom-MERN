@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import { Container,Form,Button ,Col,Row, Card} from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import LOGO from "../assets/logo1.png"
 import {useDispatch,useSelector} from "react-redux"
 import {registerUserAction} from "../redux/actions/userActions"
+import AlertComponent from './AlertComponent';
 
-const Register = () => {
-    const dispatch=useDispatch();
+const Register = ({show,setShow,text,setText}) => {
+    const navigate=useNavigate();
+        const dispatch=useDispatch();
     const [userInfor,setUserInfor]=useState({
         "firstname":"",
         "lastname":"",
@@ -14,6 +16,7 @@ const Register = () => {
         "password":"",
         "cpassword":""
     });
+  
 
     const handleChange=(e)=>{
         const value=e.target.value;
@@ -21,24 +24,33 @@ const Register = () => {
         setUserInfor({...userInfor,[name]:value});
     }
 
-    const user=useSelector((state)=>state.register);
-    console.log(user)
+    const {loading,error,success}=useSelector((state)=>state.register);
+    console.log(loading,error,success)
 
     const handlerRegister=(e)=>{
         e.preventDefault();
+        setShow(false);
         if(userInfor.firstname && userInfor.lastname && userInfor.username && userInfor.password && userInfor.cpassword){
             if(userInfor.password===userInfor.cpassword){
-               dispatch(registerUserAction(userInfor));
-
+               dispatch(registerUserAction(userInfor));  
+               if(error){
+                setShow(true);
+                setText(error);
+               }
+               setText("Successful registed")
+               navigate("/login");
+              
             }else{
-                alert("ur passwords don`t match!");
+                setShow(true);
+                setText("Password Don`t match!")
             }
-        }else(
-            alert("All fields Required !")
-        )
-
+        }else{
+            setShow(true);
+            setText("All Fields Required!")
+        }
     }
-    return (
+
+      return (
      <Container className='mt-5'>
         <Row  className="justify-content-md-center">
 
@@ -56,6 +68,8 @@ const Register = () => {
                 <Card className='mb-3'>
                     <Card.Body>
                 <Form>
+                <AlertComponent text={text} show={show} setShow={setShow}/>
+
                 <Row>
                      <Col>
                         <Form.Group className="mb-3" controlId="formBasicEmail">
@@ -109,7 +123,7 @@ const Register = () => {
                  </Col>
               </Row>   
                 <Button variant="primary" type="submit" onClick={handlerRegister}>
-                    Register
+                    {loading ? 'loading...': 'Register'}
                 </Button>
                 </Form>
                 <p>Already Have an account ? Login <Link to={'/login'}>Here</Link></p>

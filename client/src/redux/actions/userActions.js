@@ -23,7 +23,7 @@ import { getPosts } from "./postsActions";
                 'Content-type':'application/json'
             }
         }       
-        const {data}=await axios.post(`api/auth/login`,user,config);
+        const {data}=await axios.post(`${BASE_URL}/api/auth/login`,user,config);
         
         dispatch({
             type:USER_LOGIN_SUCCESS,
@@ -49,7 +49,7 @@ import { getPosts } from "./postsActions";
                 'Content-type':'application/json'
             }
         }       
-        const {data}=await axios.post(`api/auth/register`,user,config);
+        const {data}=await axios.post(`${BASE_URL}/api/auth/register`,user,config);
         dispatch({
             type:USER_REGISTER_SUCCESS,
             payload:data
@@ -76,7 +76,7 @@ import { getPosts } from "./postsActions";
                 "auth-token":userInfor.token
             }
         }       
-        const {data}=await axios.get(`api/users/`,config);
+        const {data}=await axios.get(`${BASE_URL}/api/users/`,config);
         dispatch({
             type:GET_USERS_SUCCESS,
             payload:data
@@ -92,15 +92,19 @@ import { getPosts } from "./postsActions";
     }
  }
  export const getUserAction=(id)=>{
-    return async(dispatch)=>{
+    return async(dispatch,getState)=>{
+        const {login:{userInfor},}=getState()
+
      try{
         dispatch({type:GET_USER_REQUEST});
         const config={
             headers:{
-                'Content-type':'application/json'
+                'Content-type':'application/json',
+                "auth-token":userInfor.token
+
             }
         }       
-        const {data}=await axios.get(`api/users/${id}`,config);
+        const {data}=await axios.get(`${BASE_URL}/api/users/${id}`,config);
         dispatch({
             type:GET_USER_SUCCESS,
             payload:data
@@ -128,7 +132,7 @@ import { getPosts } from "./postsActions";
             }
         } 
         
-        const {data}=await axios.put(`api/users/${id}`,user,config);
+        const {data}=await axios.put(`${BASE_URL}/api/users/${id}`,user,config);
         dispatch({
             type:UPDATE_USER_SUCCESS,
             payload:data
@@ -149,15 +153,19 @@ import { getPosts } from "./postsActions";
     }
  }
  export const deleteUserAction=(id)=>{
-    return async(dispatch)=>{
+    return async(dispatch,getState)=>{
+        const {login:{userInfor},}=getState()
+
      try{
         dispatch({type:DELETE_USER_REQUEST});
         const config={
             headers:{
-                'Content-type':'application/json'
+                'Content-type':'application/json',
+                "auth-token":userInfor.token
+
             }
         }       
-        const {data}=await axios.delete(`api/users/${id}`,config);
+        const {data}=await axios.delete(`${BASE_URL}/api/users/${id}`,config);
         dispatch({
             type:DELETE_USER_SUCCESS,
             payload:data
@@ -180,10 +188,12 @@ import { getPosts } from "./postsActions";
         dispatch({type:FOLLOW_USER_REQUEST});
         const config={
             headers:{
-                'Content-type':'application/json'
+                'Content-type':'application/json',
+                "auth-token":userInfor.token
+
             }
         }       
-        const {data}=await axios.put(`api/users/${id}/follow`,body,config);
+        const {data}=await axios.put(`${BASE_URL}/api/users/${id}/follow`,body,config);
         dispatch({
             type:FOLLOW_USER_SUCCESS,
             payload:data
@@ -216,10 +226,12 @@ import { getPosts } from "./postsActions";
         dispatch({type:UNFOLLOW_USER_REQUEST});
         const config={
             headers:{
-                'Content-type':'application/json'
+                'Content-type':'application/json',
+                "auth-token":userInfor.token
+
             }
         }       
-        const {data}=await axios.put(`api/users/${id}/unfollow`,body,config);
+        const {data}=await axios.put(`${BASE_URL}/api/users/${id}/unfollow`,body,config);
         dispatch({
             type:UNFOLLOW_USER_SUCCESS,
             payload:data

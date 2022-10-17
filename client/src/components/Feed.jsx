@@ -1,18 +1,17 @@
 import React from 'react';
 import { Card } from 'react-bootstrap';
-import COVER from "../assets/cover.jpg";
 import {BiMessageDots} from "react-icons/bi";
 import {FaShareSquare} from "react-icons/fa"
 import {FcLike,FcLikePlaceholder} from "react-icons/fc"
-import FlipMove from "react-flip-move";
 import {useSelector,useDispatch} from "react-redux"
-import {getPosts,likePost} from "../redux/actions/postsActions"
-import { useEffect } from 'react';
+import {deletePost, getPosts,likePost} from "../redux/actions/postsActions"
 import {AiFillDelete} from "react-icons/ai";
 import {MdEdit} from "react-icons/md"
 import { useState } from 'react';
+import {getPost} from "../redux/actions/postsActions"
 
-const Feed = ({post}) => {
+
+const Feed = ({post,setPostEditModalShow,setPostId}) => {
   const dispatch=useDispatch();
   const {userInfor}=useSelector((state)=>state.login);
   const [likes,setLikes]=useState(post?.likes?.length);
@@ -24,11 +23,14 @@ const Feed = ({post}) => {
     dispatch(likePost(id,body));
    liked ? setLikes((prev)=>prev-1) : setLikes((prev)=>prev+1);
   }
+  
   const handleDelete=(id)=>{
-     alert("del"+id)
+     dispatch(deletePost(id));
   }
   const handleEdit=(id)=>{
-    alert('edit'+id)
+    dispatch(getPost(id));
+    setPostId(id);
+    setPostEditModalShow(true);
   }
     return (
         <div>
@@ -38,7 +40,7 @@ const Feed = ({post}) => {
          <Card.Body className='p-2'>
            <div className='d-flex'>
            <p className='me-2' >
-           {liked ?(<FcLike style={{cursor:"pointer"}} size={25} onClick={()=>handleLike(post._id)}/>) : (<FcLikePlaceholder style={{cursor:"pointer"}} onClick={()=>handleLike(post._id)} size={25}/>)}        
+           {liked ?(<FcLike className='icon' size={25} onClick={()=>handleLike(post._id)}/>) : (<FcLikePlaceholder style={{cursor:"pointer"}} onClick={()=>handleLike(post._id)} size={25}/>)}        
            </p>
            <p className='me-2'>
            <BiMessageDots size={25} />
@@ -48,8 +50,8 @@ const Feed = ({post}) => {
            </p>
            {post.userId === userInfor?.user._id && (
            <div className='d-flex gap-1 ms-auto p-2'>
-               <p><AiFillDelete color='orange' size={25} onClick={()=>handleDelete(post._id)}/></p>
-               <p><MdEdit size={25} onClick={()=>handleEdit(post._id)}/></p>
+               <p><AiFillDelete color='orange' size={25} onClick={()=>handleDelete(post._id)} className="icon"/></p>
+               <p><MdEdit size={25} onClick={()=>handleEdit(post._id)} className="icon"/></p>
            </div>
            )}
            </div>

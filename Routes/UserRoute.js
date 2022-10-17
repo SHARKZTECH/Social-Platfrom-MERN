@@ -6,11 +6,11 @@ import verify from "../Controllers/VerifyToken.js";
 const router=express.Router();
 
 router.get("/",verify,getUsers);
-router.get("/:id",getUser);
-router.put("/:id",updateUser);
-router.delete("/:id",deleteUser);
-router.put("/:id/follow",followUser);
-router.put("/:id/unfollow",UnFollowUser);
+router.get("/:id",verify,getUser);
+router.put("/:id",verify,updateUser);
+router.delete("/:id",verify,deleteUser);
+router.put("/:id/follow",verify,followUser);
+router.put("/:id/unfollow",verify,UnFollowUser);
 
 
 export default router;

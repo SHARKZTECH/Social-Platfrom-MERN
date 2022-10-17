@@ -5,7 +5,7 @@ import
    ,deleteUserReducer,updateUserReducer,folowUserReducer,unFollowUserReducer } 
  from "./userReducers";
  import {getpostReducer,getpostsReducer,getTimeLinePostsReducer,
-      createpostReducer,updatepostReducer,likepostReducer} from "./postsReducer"
+      createpostReducer,updatepostReducer,likepostReducer,deletepostReducer} from "./postsReducer"
 
 const reducers=combineReducers({
    register:registerUserReducer,
@@ -23,6 +23,7 @@ const reducers=combineReducers({
    createPost:createpostReducer,
    updatePost:updatepostReducer,
    likePost:likepostReducer,
+   deletePost:deletepostReducer,
 });
 
 export default reducers;

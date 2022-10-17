@@ -26,11 +26,13 @@ const User = ({user}) => {
       }
 
     return (
-        <div className='d-flex align-items-center mb-1' key={user._id}>
+        <div className='d-flex align-items-center mb-1 flex-wrap' key={user._id}>
+         <div className='d-flex'>   
         <img src={COVER} className="img" alt="img" />
         <div className='me-4' style={{minWidth:"300px"}}>
             <p className='m-0 p-0'>{user.firstname}</p>
             <p className='m-0 p-0'>{user.username}</p>
+        </div>
         </div>
         <div >
         {followed ? (

@@ -14,7 +14,7 @@ export const registerUserReducer=(state={},{type,payload})=>{
         case USER_REGISTER_REQUEST:
             return {loading:true}
         case USER_REGISTER_SUCCESS:
-            return {loading:false,userInfor:payload}
+            return {loading:false,userInfor:payload,success:true}
         case USER_REGISTER_FAIL:
             return {loading:false,error:payload}
         case USER_LOGOUT:

@@ -4,8 +4,10 @@ import { Link, useNavigate } from 'react-router-dom';
 import LOGO from "../assets/logo1.png"
 import {useDispatch,useSelector} from "react-redux"
 import {loginUserAction} from "../redux/actions/userActions"
+import AlertComponent from './AlertComponent';
 
-const Login = () => {
+
+const Login = ({show,setShow,text,setText}) => {
     const navigate=useNavigate();
     const dispatch=useDispatch();
     const [userInfo,setUserInfo]=useState({    
@@ -19,18 +21,26 @@ const Login = () => {
         setUserInfo({...userInfo,[name]:value});
     }
     
-    const {loading,userInfor}=useSelector((state)=>state.login);
+    const {loading,userInfor,error}=useSelector((state)=>state.login);
 
     const handlerLogin=(e)=>{
         e.preventDefault();
+        setShow(false);
         if(userInfo.username && userInfo.password ){
                dispatch(loginUserAction(userInfo)); 
-               if(!loading && userInfor){
+               if(error){
+                setText(error);
+                setShow(true)
+               }
+               else if(!loading && userInfor){
+                   setText("Login successfully!");
+                   setShow(true);
                    navigate("/");
-               }         
-        }else(
-            alert("All fields Required !")
-        )
+               }     
+        }else{
+            setText("All fields Required !");
+            setShow(true);
+        }
 
     }
     return (
@@ -51,6 +61,8 @@ const Login = () => {
                 <Card>
                     <Card.Body>
                 <Form>
+                <AlertComponent text={text} show={show} setShow={setShow}/>
+
                 <Form.Group className="mb-3" controlId="formBasicEmail">
                     <Form.Label>Email address</Form.Label>
                     <Form.Control type="email" placeholder="Enter email" 
@@ -67,7 +79,7 @@ const Login = () => {
                        value={userInfo.password}/>
                 </Form.Group>    
                 <Button variant="primary" type="submit" onClick={handlerLogin}>
-                    Login
+                    {loading ? "loading..." : "Login"}
                 </Button>
                 </Form>
                 <p>Don`t Have an account ? Register <Link to={'/register'}>Here</Link></p>
