@@ -32,7 +32,7 @@ const CreatePost = (props) => {
     // useEffect(()=>{     
     //     setPostData({...postData,userId:userInfor?.user._id});       
     // },[userInfor])
-
+     console.log(postData);
     const handleSubmit=()=>{
         if(userId){
             if(postData.desc){
@@ -61,7 +61,7 @@ const CreatePost = (props) => {
                     name="q"
                     className='frm-control'
                     placeholder='What`s hapening ?'
-                    onChange={(e)=>setPostData({desc:e.target.value})}
+                    onChange={(e)=>setPostData({...postData,desc:e.target.value})}
                     value={postData.desc}
                     ></Form.Control>
                     </Form.Group>
@@ -90,6 +90,12 @@ const CreatePost = (props) => {
                         Shedule
                     </p>                  
                     <Button size='sm' style={{marginTop:"-15px"}} onClick={handleSubmit}>Share</Button>
+                    {postData.image &&(
+                        <>
+                        <Button onClick={()=>setPostData({...postData,image:""})}>X</Button>
+                        <img src={postData?.image} alt="post" style={{width:"420px",height:"300px",objectFit:'cover'}}/>
+                        </>
+                    )}
                 </div>
             </Card>  
     );

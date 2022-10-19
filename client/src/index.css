@@ -5,6 +5,7 @@
 }
 .app{
    height: 100vh;
+   overflow-y:scroll;
    background-color:#0f0e13;
    background-image: 
      radial-gradient(at 0% 0%, hsla(253,16%,7%,1) 0, transparent 50%), 
@@ -15,8 +16,7 @@
      
 }
 html,body{
-    overflow-y:scroll;
-    height: 100vh;
+ 
 }
 body::-webkit-scrollbar{
     display: none;

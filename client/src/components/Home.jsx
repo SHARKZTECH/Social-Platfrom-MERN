@@ -14,15 +14,12 @@ import Trends from './Trends';
 import HeaderIcons from './HeaderIcons';
 import PeopleUKnow from './PeopleUKnow';
 import {getPosts} from "../redux/actions/postsActions"
-import EditPostModal from './EditPostModal';
 
 
 const Home = () => {
    const dispatch=useDispatch();
     const [modalShow,setModalShow]=useState(false);
     const [editmodalShow,setEditModalShow]=useState(false);
-    const [postEditModalShow,setPostEditModalShow]=useState(false);
-    const [postId,setPostId]=useState(null);
     const [showProfileD,setShowProfileD]=useState(false);
 
     const {userInfor}=useSelector((state)=>state.login);
@@ -35,7 +32,7 @@ const Home = () => {
     return (
      <Row>
 
-        <Col>
+        <Col sm={12} md={4}>
            <div className='d-flex align-items-center'>
                <div className='me-1'>
                  <img src={TWITTER} alt='img' width={60} onClick={handleHome} className="icon"/>
@@ -49,30 +46,26 @@ const Home = () => {
            <PeopleUKnow/>
         </Col>
         
-        <Col className='mt-2 mid'>
+        <Col sm={12} md={4}className='mt-2 mid'>
             <Profile showProfileD={showProfileD}/>
             <EditDetailsModal 
             show={editmodalShow}
             onHide={()=>setEditModalShow(false)}
             />
-            <EditPostModal
-            show={postEditModalShow}
-            onHide={()=>setPostEditModalShow(false)}
-            postId={postId}
-            />
+         
             <CreatePostModal
             show={modalShow} 
             onHide={()=>setModalShow(false)}
             />
              <CreatePost gap={2}/>
-            <Feeds showProfileD={showProfileD} setPostEditModalShow={setPostEditModalShow} setPostId={setPostId}/>         
+            <Feeds showProfileD={showProfileD} />         
         </Col>
       
         <Col className='mt-3'>
         <HeaderIcons setShowProfileD={setShowProfileD}/>
           <Trends/>
            <div className='d-grid'>
-              <Button className='mt-3' onClick={()=>setModalShow(true)}>Share</Button> 
+              <Button className='mt-3' onClick={()=>setModalShow(false)}>Share</Button> 
               </div>         
         </Col>
      </Row>

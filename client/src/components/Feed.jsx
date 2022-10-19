@@ -11,7 +11,7 @@ import { useState } from 'react';
 import {getPost} from "../redux/actions/postsActions"
 
 
-const Feed = ({post,setPostEditModalShow,setPostId}) => {
+const Feed = ({post}) => {
   const dispatch=useDispatch();
   const {userInfor}=useSelector((state)=>state.login);
   const [likes,setLikes]=useState(post?.likes?.length);
@@ -28,9 +28,8 @@ const Feed = ({post,setPostEditModalShow,setPostId}) => {
      dispatch(deletePost(id));
   }
   const handleEdit=(id)=>{
-    dispatch(getPost(id));
-    setPostId(id);
-    setPostEditModalShow(true);
+    // dispatch(getPost(id));
+   
   }
     return (
         <div>
@@ -51,7 +50,7 @@ const Feed = ({post,setPostEditModalShow,setPostId}) => {
            {post.userId === userInfor?.user._id && (
            <div className='d-flex gap-1 ms-auto p-2'>
                <p><AiFillDelete color='orange' size={25} onClick={()=>handleDelete(post._id)} className="icon"/></p>
-               <p><MdEdit size={25} onClick={()=>handleEdit(post._id)} className="icon"/></p>
+               {/* <p><MdEdit size={25} onClick={()=>handleEdit(post._id)} className="icon"/></p> */}
            </div>
            )}
            </div>
@@ -77,8 +76,8 @@ const Feed = ({post,setPostEditModalShow,setPostId}) => {
           </p>
           {post.userId === userInfor?.user._id && (
            <div className='d-flex gap-1 ms-auto p-2'>
-               <p><AiFillDelete color='orange' size={25} onClick={()=>handleDelete(post._id)}/></p>
-               <p><MdEdit size={25} onClick={()=>handleEdit(post._id)}/></p>
+               <p><AiFillDelete color='orange' size={25} onClick={()=>handleDelete(post._id)} className='icon'/></p>
+               {/* <p><MdEdit size={25} onClick={()=>handleEdit(post._id)}/></p> */}
            </div>
            )}
           </div>
