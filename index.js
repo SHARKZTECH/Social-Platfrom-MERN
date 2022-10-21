@@ -38,7 +38,7 @@ app.get("*",function(_,res){
 });
 
 mongoose
-.connect(process.env.URL_LOCAL,
+.connect(process.env.MONGOBD_URI,
 {useNewUrlParser:true,useUnifiedTopology:true})
 .then(()=> app.listen(PORT,()=>console.log("Listening on Port: "+PORT)))
 .catch((err)=>console.log(err));
