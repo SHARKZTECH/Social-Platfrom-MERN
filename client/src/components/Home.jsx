@@ -53,11 +53,12 @@ const Home = () => {
             onHide={()=>setEditModalShow(false)}
             />
          
+           {!modalShow && (<CreatePost gap={2}/>)}
             <CreatePostModal
             show={modalShow} 
             onHide={()=>setModalShow(false)}
             />
-             <CreatePost gap={2}/>
+         
             <Feeds showProfileD={showProfileD} />         
         </Col>
       
@@ -65,7 +66,7 @@ const Home = () => {
         <HeaderIcons setShowProfileD={setShowProfileD}/>
           <Trends/>
            <div className='d-grid'>
-              <Button className='mt-3' onClick={()=>setModalShow(false)}>Share</Button> 
+              <Button className='mt-3' onClick={()=>setModalShow(true)}>Share</Button> 
               </div>         
         </Col>
      </Row>

@@ -17,12 +17,22 @@ const CreatePost = (props) => {
         "desc":"",
         "image":""
     })
+    
     const handleChange=(e)=>{
        let file=e.target.files[0];
        let reader=new FileReader();
        reader.readAsDataURL(file);
+
        reader.onload=(e)=>{
-        setPostData({...postData,image:e.target.result})
+
+        let fileInfo={
+            name: file.name,
+            type: file.type,
+            size: Math.round(file.size / 1000) + ' kB',
+            base64: reader.result,
+            file: file,
+        }
+        setPostData({...postData,image:fileInfo.base64})
        } 
     }
     const {userInfor}=useSelector((state)=>state.login);
@@ -93,7 +103,7 @@ const CreatePost = (props) => {
                     {postData.image &&(
                         <>
                         <Button onClick={()=>setPostData({...postData,image:""})}>X</Button>
-                        <img src={postData?.image} alt="post" style={{width:"420px",height:"300px",objectFit:'cover'}}/>
+                        <img src={postData?.image} alt="post" style={{width:"350px",height:"300px",objectFit:'cover'}}/>
                         </>
                     )}
                 </div>
