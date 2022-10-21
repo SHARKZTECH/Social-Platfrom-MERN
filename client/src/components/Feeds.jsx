@@ -6,7 +6,7 @@ import { useEffect } from 'react';
 import Feed from "./Feed";
 
 
-const Feeds = ({showProfileD}) => {
+const Feeds = ({showProfileD,setEditPostModalShow,setPostId}) => {
   const dispatch=useDispatch();
   const {userInfor}=useSelector((state)=>state.login);
   let {posts,loading}=useSelector((state)=>state.posts);
@@ -24,7 +24,7 @@ const Feeds = ({showProfileD}) => {
       <FlipMove>
       {posts?.map((post) => ( 
        <div key={post._id}>
-        <Feed post={post} />
+        <Feed post={post}  setEditPostModalShow={setEditPostModalShow} setPostId={setPostId}/>
        </div>
       ))}
       </FlipMove>

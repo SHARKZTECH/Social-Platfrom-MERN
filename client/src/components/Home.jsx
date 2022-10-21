@@ -14,13 +14,15 @@ import Trends from './Trends';
 import HeaderIcons from './HeaderIcons';
 import PeopleUKnow from './PeopleUKnow';
 import {getPosts} from "../redux/actions/postsActions"
-
+import EditPostModal from "./EditPostModal"
 
 const Home = () => {
    const dispatch=useDispatch();
     const [modalShow,setModalShow]=useState(false);
     const [editmodalShow,setEditModalShow]=useState(false);
+    const [editPostModalShow,setEditPostModalShow]=useState(false);
     const [showProfileD,setShowProfileD]=useState(false);
+    const [postId,setPostId]=useState(null);
 
     const {userInfor}=useSelector((state)=>state.login);
 
@@ -28,7 +30,6 @@ const Home = () => {
       dispatch(getPosts(userInfor?.user._id));  
       setShowProfileD(false)
   }
-
     return (
      <Row>
 
@@ -52,14 +53,22 @@ const Home = () => {
             show={editmodalShow}
             onHide={()=>setEditModalShow(false)}
             />
+
+            <EditPostModal
+            show={editPostModalShow}
+            onHide={()=>setEditPostModalShow(false)}
+            id={postId}
+            setShow={setEditPostModalShow}
+            />
          
-           {!modalShow && (<CreatePost gap={2}/>)}
+           {!modalShow && !editPostModalShow && (<CreatePost gap={2}/>)}
+
             <CreatePostModal
             show={modalShow} 
             onHide={()=>setModalShow(false)}
             />
          
-            <Feeds showProfileD={showProfileD} />         
+            <Feeds showProfileD={showProfileD}  setEditPostModalShow={setEditPostModalShow} setPostId={setPostId}  />         
         </Col>
       
         <Col className='mt-3'>

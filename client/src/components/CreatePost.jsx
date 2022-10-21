@@ -42,7 +42,6 @@ const CreatePost = (props) => {
     // useEffect(()=>{     
     //     setPostData({...postData,userId:userInfor?.user._id});       
     // },[userInfor])
-     console.log(postData);
     const handleSubmit=()=>{
         if(userId){
             if(postData.desc){

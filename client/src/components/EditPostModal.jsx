@@ -17,32 +17,32 @@ const EditPostModal = (props) => {
     })
 
     const handleUpadateChange=(e)=>{
-    //    let file=e.target.files[0];
-    //    let reader=new FileReader();
-    //    reader.readAsDataURL(file);
-    //    reader.onload=(e)=>{
-    //     setPostData({...postData,image:e.target.result})
-    //    } 
+       let file=e.target.files[0];
+       let reader=new FileReader();
+       reader.readAsDataURL(file);
+       reader.onload=(e)=>{
+        setPostData({...postData,image:e.target.result})
+       } 
      }
    
     const {userInfor}=useSelector((state)=>state.login);  
     const {post,loading}=useSelector((state)=>state.post); 
     const userId=userInfor?.user._id;
 
-     console.log(postData);
     const handleSubmit=()=>{
         if(userId){
-            console.log(postData);
+            dispatch(updatePost(props.id,{userId,...postData}));
+            props.setShow(false);
         }
     }
 
-    // useEffect(()=>{
-    //         setPostData({
-    //             "desc":post?.desc,
-    //             "image":post?.image
-    //         })
+    useEffect(()=>{
+            setPostData({
+                "desc":post?.desc,
+                "image":post?.image
+            })
         
-    // },[post]);
+    },[post]);
 
     return (
         <>
@@ -94,8 +94,12 @@ const EditPostModal = (props) => {
                     </p>                  
                     <Button size='sm' style={{marginTop:"-15px"}} onClick={handleSubmit}>Update</Button>
                     
-                    <Button onClick={()=>setPostData({...postData,image:""})}>X</Button>
-                    <img src={postData?.image} alt="post" style={{width:"420px"}}/>
+                         {postData?.image &&(
+                            <>
+                              <Button onClick={()=>setPostData({...postData,image:""})}>X</Button>
+                              <img src={postData?.image} alt="post" style={{width:"350px"}}/>
+                            </>
+                         )}
 
                 </div>
             </Card>

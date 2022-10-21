@@ -155,9 +155,9 @@ export const updatePost=(id,body)=>{
             const {data}=await axios.put(`${BASE_URL}/api/posts/${id}`,body,config);
 
             dispatch({type:UPDATE_POST_SUCCESS,payload:data});
-            console.log(posts)
-            posts=[...posts.map((post)=> post._id ===id ? post===data : post)]
-            console.log(posts)
+            posts=[...posts.map((post)=> post._id===id ? {...post,...body} : post )]
+            dispatch({type:GET_POSTS_SUCCESS,payload:posts});
+
         }catch(error){
             dispatch({
                 type:UPDATE_POST_FAIL,
