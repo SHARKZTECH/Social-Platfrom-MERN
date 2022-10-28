@@ -1,6 +1,6 @@
 {
   "name": "client",
-  "proxy":"http://127.0.0.1:5000/",
+  "proxy": "http://127.0.0.1:5000/",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -20,7 +20,8 @@
     "react-redux": "^8.0.4",
     "react-router-dom": "^6.4.1",
     "redux": "^4.2.0",
-    "redux-thunk": "^2.4.1"
+    "redux-thunk": "^2.4.1",
+    "timeago.js": "^4.0.2"
   },
   "devDependencies": {
     "@types/react": "^18.0.17",

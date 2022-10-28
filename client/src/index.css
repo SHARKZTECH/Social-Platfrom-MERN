@@ -104,3 +104,53 @@ body::-webkit-scrollbar{
 .icon{
     cursor: pointer;
 }
+.chat{
+    height: 100vh;
+}
+.chat-user{
+    padding: 0;
+    margin: 0;
+}
+.chat-user p{
+    margin: 0;
+    padding: 0;
+}
+.chat-user .status{
+    font-size: small;
+    color: rgb(170, 162, 162);
+}
+.msg{
+    max-height: 75vh;
+    overflow-y: scroll;
+    width: 100%;
+    padding-right: 1rem;
+    height: 80vh;
+}
+.msg div{
+    margin-bottom: .5rem;
+}
+.msg p{
+    margin: 0;
+}
+.msg span{
+    font-size: small;
+    float: right;
+    color: rgb(196, 192, 187);
+}
+.msg-send{
+    background-color: rgb(56, 103, 222);
+    max-width: 60%;
+    padding: 1rem;
+    border-radius: 1rem 1rem 0 1rem;
+    float: right;
+    clear: both;
+ 
+}
+.msg-receive{
+   background-color: rgb(255, 166, 0);
+   max-width: 60%;
+   padding: 1rem;
+   border-radius: 1rem 1rem 1rem 0;
+   float: left;
+   clear: both;
+}
