@@ -8,13 +8,23 @@ import { useState } from 'react'
 import { useSelector } from 'react-redux'
 import { BASE_URL } from '../redux/actions/base'
 import ChartBox from './ChartBox'
+import {io} from "socket.io-client"
+import { useRef } from 'react'
 
 export default function Chat() {
   const [chats,setChats]=useState([]);
   const [currentChat,setCurentChat]=useState(null);
+  const [onlineUsers,setOnlineUsers]=useState([]);
   const {userInfor}=useSelector((state)=>state.login);
+  const socket=useRef();
 
-
+  useEffect(()=>{
+      socket.current=io("http://127.0.0.1:5000");
+      socket.current.emit("new-user-add",userInfor.user._id);
+      socket.current.on("get-users",users=>{
+        setOnlineUsers(users)
+      })
+  },[userInfor.user])
   useEffect(()=>{
     const getChats=async()=>{
       try{

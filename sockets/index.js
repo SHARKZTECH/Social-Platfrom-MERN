@@ -1,29 +1,27 @@
-const path=require("path");
-const http=require("http");
-const express=require("express");
-const socketio=require("socket.io");
+import {Server} from "socket.io"
+const sockets=(server)=>{
+const io=new Server(server,{cors:{origin:"*",  methods: ["GET", "POST"] }});
 
-const app=express();
-const server=http.createServer(app);
-const io=socketio(server,{cors:{origin:"*",  methods: ["GET", "POST"] }});
-//Set Static folder
-// app.use(express.static(path.join(__dirname,'server')));
 //Run when client connects
+let activeUsers=[]
 
 io.on("connection",socket=>{
-    //Welkam user
-    socket.emit("message","Welkam to SharChart!");
-    //Broadcast when user connect
-    socket.broadcast.emit("message","A user has joine the chat!");
-    //Dissconnect
-    socket.on("disconnect",()=>{
-        io.emit("message","A user has left the chat!");
-    })
-    //Listen for ChatMsg
-    socket.on("chatMsg",msg=>{
-        io.emit("message",msg);
+    //add new User
+    socket.on("new-user-add",(newUserId)=>{
+        if(!activeUsers.some((user)=>user.userId === newUserId)){
+           activeUsers.push({
+            userId:newUserId,
+            socketId:socket.id
+           })
+        }
+        io.emit('get-users',activeUsers);
     });
-})
 
-const PORT=5000 || process.env.PORT;
-server.listen(PORT,()=>console.log(`Running ${PORT}`))
+    socket.on("disconnect",()=>{
+       activeUsers=activeUsers.filter(user=>user.socketId !==socket.id );
+    })
+
+});
+
+}
+export default sockets;

@@ -12,7 +12,7 @@ const MessageShema=mongoose.Schema({
     },
 
 },{
-    timpestamps:true,
+    timestamps:true,
 })
 
 const MessageModel=mongoose.model("Message",MessageShema);
