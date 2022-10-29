@@ -13,9 +13,11 @@ const HeaderIcons = (props) => {
     const handleHome=()=>{
         if(props.chat){
             navigate("/home")
+        }else{
+            dispatch(getPosts(userInfor?.user._id));  
+            props.setShowProfileD(false)
         }
-        dispatch(getPosts(userInfor?.user._id));  
-        props.setShowProfileD(false)
+       
     }
 
     const handleChat=()=>{

@@ -58,7 +58,7 @@ export default function Chat() {
   return (
     <div className='chat'>
         <Row>
-            <Col md={4}>
+            <Col md={4} sm={2}>
           <SearchBox/>
                <Card className='p-1 mt-2'
                style={{height:"92vh"}}
@@ -74,10 +74,10 @@ export default function Chat() {
                </Card>
             </Col>
 
-            <Col md={8}> 
+            <Col md={8} sm={10}> 
             <HeaderIcons chat={true}/>
               <Card className='p-1'
-              style={{height:"92vh"}}> 
+               style={{minHeight:"92vh"}}> 
                  {currentChat ?(
                   <ChartBox chat={currentChat} currentUserId={userInfor.user._id} token={userInfor.token} setSendMsg={setSendMsg} receiveMsg={receiveMsg}/>
                  ):(

@@ -39,7 +39,7 @@ export default function Conversation({chat,currentUserId,token,onlineUsers}) {
         <div className='d-flex align-items-center border-bottom border-infor'>
             <img src={userData.profilePic || PROF} alt="profile" className='img'/>
             <div className='chat-user'>
-                <p>{userData?.username}</p>
+                <p className='d-sm-none d-md-block'>{userData?.username}</p>
                 <p className={online.current? "status-online" : "status"} >{online.current ? "online" : "offline"}</p>
             </div>                 
         </div>             
