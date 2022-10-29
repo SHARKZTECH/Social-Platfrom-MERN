@@ -45,9 +45,9 @@ app.get("*",function(_,res){
         }
     )
 });
-
+//"mongodb://127.0.0.1:27017/social"
 mongoose
-.connect("mongodb://127.0.0.1:27017/social",
+.connect(process.env.MONGODB_URI,
 {useNewUrlParser:true,useUnifiedTopology:true})
 .then(()=> server.listen(PORT,()=>console.log("Listening on Port: "+PORT)))
 .catch((err)=>console.log(err));
