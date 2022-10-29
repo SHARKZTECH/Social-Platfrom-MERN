@@ -15,6 +15,7 @@ import HeaderIcons from './HeaderIcons';
 import PeopleUKnow from './PeopleUKnow';
 import {getPosts} from "../redux/actions/postsActions"
 import EditPostModal from "./EditPostModal"
+import Chat from './Chat';
 
 const Home = () => {
    const dispatch=useDispatch();

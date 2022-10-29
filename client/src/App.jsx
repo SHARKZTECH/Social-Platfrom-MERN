@@ -5,6 +5,7 @@ import Home from './components/Home'
 import Login from './components/Login'
 import Register from './components/Register'
 import {useSelector} from "react-redux"
+import Chat from './components/Chat'
 
 function App() {
     const {userInfor}=useSelector((state)=>state.login);
@@ -20,6 +21,7 @@ function App() {
       <Route path="/home" element={userInfor? <Home/> : <Navigate to={'../login'}/>}/>
       <Route path="/register" element={userInfor ?<Navigate to={'../home'}/> :<Register show={show} setShow={setShow} text={text} setText={setText}/>}/>
       <Route path="/login" element={userInfor ?<Navigate to={'../home'}/> :<Login show={show} setShow={setShow} text={text} setText={setText}/>}/>
+      <Route path="/chat" element={userInfor? <Chat/> : <Navigate to={'../login'}/>}/>
       </Routes>
     </div>
   )
