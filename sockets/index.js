@@ -27,7 +27,7 @@ io.on("connection",socket=>{
     })
     //Disconnects
     socket.on("disconnect",()=>{
-       activeUsers=activeUsers.filter(user=>user.socketId !==socket.id );
+       activeUsers=activeUsers.filter(user=>user.socketId !== socket.id );
        io.emit('get-users',activeUsers);
     })
 

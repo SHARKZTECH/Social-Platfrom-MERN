@@ -83,11 +83,11 @@ export default function ChartBox({chat,currentUserId,token,setSendMsg,receiveMsg
         </div>
 
         <div className='msg pt-2'>
-        <p className='msg-send'>Hellow</p>
-        <p className='msg-receive'>Hellow 2</p>
+        {/* <p className='msg-send'>Hellow</p>
+        <p className='msg-receive'>Hellow 2</p> */}
 
         {messages?.map((msg)=>(
-           <div ref={scroll} className={msg.senderId === currentUserId ? `msg-send` : `msg-receive`}>
+           <div key={msg._id} ref={scroll} className={msg.senderId === currentUserId ? `msg-send` : `msg-receive`}>
             <p>{msg.text}</p>
             <span>{format(msg.createdAt)}</span>
            </div>

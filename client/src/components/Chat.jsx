@@ -20,16 +20,16 @@ export default function Chat() {
   const {userInfor}=useSelector((state)=>state.login);
   const socket=useRef();
 
-
-
+//get online users from socket
   useEffect(()=>{
-      socket.current=io("http://127.0.0.1:5000");
+      socket.current=io(`${BASE_URL}`);
       socket.current.emit("new-user-add",userInfor.user._id);
       socket.current.on("get-users",users=>{
         setOnlineUsers(users)
       })
+    
   },[userInfor.user])
-
+//get all chats from db
   useEffect(()=>{
     const getChats=async()=>{
       try{
@@ -66,7 +66,7 @@ export default function Chat() {
                 <h4 className='text-center pt-2'>Chats</h4> 
 
                 {chats.map((chat)=>(
-                <div onClick={()=>{setCurentChat(null);setCurentChat(chat)}}>
+                <div key={chat._id} onClick={()=>{setCurentChat(null);setCurentChat(chat)}}>
                   <Conversation chat={chat} currentUserId={userInfor.user._id} token={userInfor.token} onlineUsers={onlineUsers}/>                  
                  </div>                   
                   ))}    
@@ -83,9 +83,7 @@ export default function Chat() {
                  ):(
                    <p className='text-center mt-3'>Click on  user to a start a conversation!</p>  
 
-                 )}
-
-               
+                 )}               
               </Card>
             </Col>
         </Row>

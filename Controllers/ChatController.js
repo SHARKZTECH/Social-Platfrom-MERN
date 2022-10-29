@@ -6,8 +6,15 @@ export const createChat=async(req,res)=>{
 
     });
     try{
-        const result=await newChat.save();
-        res.status(200).json(result);
+        const chat=await ChatModel.findOne({
+            members:{$all:[req.body.senderId,req.body.receiverId]}
+        })
+        if(!chat){
+            const result=await newChat.save();
+            res.status(200).json(result);
+        }else{
+            res.status(400).json({"message":"Chat Already Exists!"})
+        }
     }catch(err){
         res.status(500).json(err)   
     }

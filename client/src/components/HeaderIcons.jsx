@@ -17,7 +17,6 @@ const HeaderIcons = (props) => {
             dispatch(getPosts(userInfor?.user._id));  
             props.setShowProfileD(false)
         }
-       
     }
 
     const handleChat=()=>{

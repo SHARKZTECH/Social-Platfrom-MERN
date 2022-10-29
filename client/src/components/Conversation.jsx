@@ -3,8 +3,6 @@ import { useEffect } from 'react'
 import PROF from "../assets/cover.jpg"
 import axios from "axios"
 import { useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { getUserAction } from '../redux/actions/userActions'
 import { BASE_URL } from '../redux/actions/base'
 import { useRef } from 'react'
 
@@ -18,7 +16,7 @@ export default function Conversation({chat,currentUserId,token,onlineUsers}) {
     const userId=chat.members.filter((id)=>id!==currentUserId);
      online.current=onlineUsers.some((user)=>user.userId ===userId[0]);
   },[onlineUsers,chat])
-
+//Get userData
   useEffect(()=>{
     const config={
       headers:{
@@ -40,7 +38,7 @@ export default function Conversation({chat,currentUserId,token,onlineUsers}) {
             <img src={userData.profilePic || PROF} alt="profile" className='img'/>
             <div className='chat-user'>
                 <p className='d-sm-none d-md-block'>{userData?.username}</p>
-                <p className={online.current? "status-online" : "status"} >{online.current ? "online" : "offline"}</p>
+                <p className={online.current? "status-online" : "status"} ref={online} >{online.current ? "online" : "offline"}</p>
             </div>                 
         </div>             
     </div>
