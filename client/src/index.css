@@ -119,12 +119,19 @@ body::-webkit-scrollbar{
     font-size: small;
     color: rgb(170, 162, 162);
 }
+.chat-user .status-online{
+    font-size: small;
+    color: rgb(6, 238, 238);
+}
 .msg{
     max-height: 75vh;
     overflow-y: scroll;
     width: 100%;
     padding-right: 1rem;
     height: 80vh;
+}
+.msg::-webkit-scrollbar{
+    display: none;
 }
 .msg div{
     margin-bottom: .5rem;

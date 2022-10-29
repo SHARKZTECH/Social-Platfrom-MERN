@@ -15,8 +15,12 @@ export default function Chat() {
   const [chats,setChats]=useState([]);
   const [currentChat,setCurentChat]=useState(null);
   const [onlineUsers,setOnlineUsers]=useState([]);
+  const [sendMsg,setSendMsg]=useState(null);
+  const [receiveMsg,setReceiveMsg]=useState(null);
   const {userInfor}=useSelector((state)=>state.login);
   const socket=useRef();
+
+
 
   useEffect(()=>{
       socket.current=io("http://127.0.0.1:5000");
@@ -25,6 +29,7 @@ export default function Chat() {
         setOnlineUsers(users)
       })
   },[userInfor.user])
+
   useEffect(()=>{
     const getChats=async()=>{
       try{
@@ -36,6 +41,19 @@ export default function Chat() {
     }
     getChats();
   },[userInfor.user._id])
+//Send msg to socket.io back
+  useEffect(()=>{
+    if(sendMsg !== null){
+     socket.current.emit("send-message",sendMsg); 
+    }
+  },[sendMsg])
+//Receive msg from socket io bck
+  useEffect(()=>{
+    socket.current.on("receive-message",data=>{
+      setReceiveMsg(data);
+    })
+
+  },[])
 
   return (
     <div className='chat'>
@@ -49,7 +67,7 @@ export default function Chat() {
 
                 {chats.map((chat)=>(
                 <div onClick={()=>{setCurentChat(null);setCurentChat(chat)}}>
-                  <Conversation chat={chat} currentUserId={userInfor.user._id} token={userInfor.token}/>                  
+                  <Conversation chat={chat} currentUserId={userInfor.user._id} token={userInfor.token} onlineUsers={onlineUsers}/>                  
                  </div>                   
                   ))}    
                          
@@ -61,7 +79,7 @@ export default function Chat() {
               <Card className='p-1'
               style={{height:"92vh"}}> 
                  {currentChat ?(
-                  <ChartBox chat={currentChat} currentUserId={userInfor.user._id} token={userInfor.token}/>
+                  <ChartBox chat={currentChat} currentUserId={userInfor.user._id} token={userInfor.token} setSendMsg={setSendMsg} receiveMsg={receiveMsg}/>
                  ):(
                    <p className='text-center mt-3'>Click on  user to a start a conversation!</p>  
 

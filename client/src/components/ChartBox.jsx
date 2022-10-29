@@ -5,14 +5,22 @@ import PROF from "../assets/cover.jpg"
 import { BASE_URL } from '../redux/actions/base';
 import {format}  from "timeago.js"
 import ReactInputEmoji from "react-input-emoji"
+import { useRef } from 'react';
 
 
 
-export default function ChartBox({chat,currentUserId,token}) {
+export default function ChartBox({chat,currentUserId,token,setSendMsg,receiveMsg}) {
     const [userData,setUserData]=useState({});
     const [messages,setMessages]=useState([]);
-    const [newMsg,setNewMsg]=useState("");
+    const [newMsg,setNewMsg]=useState(""); 
+    const scroll=useRef();
   
+    useEffect(()=>{
+       if(receiveMsg !== null && receiveMsg.chatId === chat._id){
+        setMessages([...messages,receiveMsg]);
+       }
+    },[receiveMsg])
+
     useEffect(()=>{
       const config={
         headers:{
@@ -41,6 +49,11 @@ export default function ChartBox({chat,currentUserId,token}) {
       setNewMsg(newMsg);
     }
 
+    //Scroll to the last msg
+    useEffect(()=>{
+       scroll.current?.scrollIntoView({behavior:"smooth"})
+    },[messages]);
+
     const handleSend=async(e)=>{
       e.preventDefault();
       const message={
@@ -48,7 +61,6 @@ export default function ChartBox({chat,currentUserId,token}) {
         chatId:chat._id,
         text:newMsg
       }
-
       //send msh to db
       try{
         const {data}=await axios.post(`${BASE_URL}/api/message`,message);
@@ -57,6 +69,10 @@ export default function ChartBox({chat,currentUserId,token}) {
       }catch(err){
         console.log(err)
       }
+
+      //send message to socket server
+      const receiverId=chat.members.find((id)=>id !== currentUserId);
+      setSendMsg({...message,receiverId});
     }
 
   return (
@@ -71,7 +87,7 @@ export default function ChartBox({chat,currentUserId,token}) {
         <p className='msg-receive'>Hellow 2</p>
 
         {messages?.map((msg)=>(
-           <div className={msg.senderId === currentUserId ? `msg-send` : `msg-receive`}>
+           <div ref={scroll} className={msg.senderId === currentUserId ? `msg-send` : `msg-receive`}>
             <p>{msg.text}</p>
             <span>{format(msg.createdAt)}</span>
            </div>

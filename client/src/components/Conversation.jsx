@@ -6,11 +6,19 @@ import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { getUserAction } from '../redux/actions/userActions'
 import { BASE_URL } from '../redux/actions/base'
+import { useRef } from 'react'
 
 
-export default function Conversation({chat,currentUserId,token}) {
+export default function Conversation({chat,currentUserId,token,onlineUsers}) {
   const [userData,setUserData]=useState({});
+  let online=useRef();
   
+  //online users
+  useEffect(()=>{
+    const userId=chat.members.filter((id)=>id!==currentUserId);
+     online.current=onlineUsers.some((user)=>user.userId ===userId[0]);
+  },[onlineUsers,chat])
+
   useEffect(()=>{
     const config={
       headers:{
@@ -32,7 +40,7 @@ export default function Conversation({chat,currentUserId,token}) {
             <img src={userData.profilePic || PROF} alt="profile" className='img'/>
             <div className='chat-user'>
                 <p>{userData?.username}</p>
-                <p className='status'>Offline</p>
+                <p className={online.current? "status-online" : "status"} >{online.current ? "online" : "offline"}</p>
             </div>                 
         </div>             
     </div>

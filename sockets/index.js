@@ -17,8 +17,18 @@ io.on("connection",socket=>{
         io.emit('get-users',activeUsers);
     });
 
+    //send msg
+    socket.on("send-message",(data)=>{
+        const {receiverId}=data;
+        const user=activeUsers.find((user)=>user.userId === receiverId);
+        if(user){
+           io.to(user.socketId).emit("receive-message",data);
+        }
+    })
+    //Disconnects
     socket.on("disconnect",()=>{
        activeUsers=activeUsers.filter(user=>user.socketId !==socket.id );
+       io.emit('get-users',activeUsers);
     })
 
 });
